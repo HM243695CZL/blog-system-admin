@@ -3,6 +3,7 @@ package com.hl.blog.modules.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hl.blog.common.vo.PageParamsDTO;
+import com.hl.blog.modules.blog.dto.BlogTypePageDto;
 import com.hl.blog.modules.blog.model.BlogType;
 import com.hl.blog.modules.blog.mapper.BlogTypeMapper;
 import com.hl.blog.modules.blog.service.BlogTypeService;
@@ -26,7 +27,7 @@ public class BlogTypeServiceImpl extends ServiceImpl<BlogTypeMapper, BlogType> i
      * @return
      */
     @Override
-    public Page<BlogType> getList(PageParamsDTO paramsDTO) {
+    public Page<BlogType> getList(BlogTypePageDto paramsDTO) {
         Page<BlogType> page = new Page<>(paramsDTO.getPageIndex(), paramsDTO.getPageSize());
         QueryWrapper<BlogType> wrapper = new QueryWrapper<>();
         return page(page, wrapper);

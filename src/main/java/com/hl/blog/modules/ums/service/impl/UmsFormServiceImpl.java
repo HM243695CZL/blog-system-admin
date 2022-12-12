@@ -1,8 +1,10 @@
 package com.hl.blog.modules.ums.service.impl;
 
+import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hl.blog.common.exception.ApiException;
 import com.hl.blog.modules.ums.dto.FormKeyDTO;
 import com.hl.blog.modules.ums.dto.FormPageDTO;
 import com.hl.blog.modules.ums.model.UmsForm;
@@ -52,6 +54,10 @@ public class UmsFormServiceImpl extends ServiceImpl<UmsFormMapper, UmsForm> impl
     public UmsForm getConfigByKey(FormKeyDTO formKeyDTO) {
         QueryWrapper<UmsForm> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(UmsForm::getFormKey, formKeyDTO.getKey());
+        UmsForm config = getOne(wrapper);
+        if (config == null) {
+            throw new ApiException("表单配置不存在");
+        }
         return getOne(wrapper);
     }
 }

@@ -28,7 +28,7 @@ CREATE TABLE `blog_type`  (
   `number` int(11) NULL DEFAULT NULL COMMENT '博客数量',
   `add_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `delete` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
+  `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 

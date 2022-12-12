@@ -5,6 +5,7 @@ import com.hl.blog.common.api.CommonPage;
 import com.hl.blog.common.api.CommonResult;
 import com.hl.blog.common.log.LogAnnotation;
 import com.hl.blog.common.vo.PageParamsDTO;
+import com.hl.blog.modules.blog.dto.BlogTypePageDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,17 +31,18 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "分类管理", description = "分类管理")
 public class BlogTypeController {
 
+
+    @Autowired
+    private BlogTypeService blogTypeService;
+
     // 分页
     @LogAnnotation()
     @ApiOperation("分页查询")
     @RequestMapping(value = "/page", method = RequestMethod.POST)
-    public CommonResult page(@RequestBody PageParamsDTO paramsDTO) {
+    public CommonResult page(@RequestBody BlogTypePageDto paramsDTO) {
         Page<BlogType> typeList = blogTypeService.getList(paramsDTO);
         return CommonResult.success(CommonPage.restPage(typeList));
     }
-
-    @Autowired
-    private BlogTypeService blogTypeService;
 
     // 新增
     @LogAnnotation()

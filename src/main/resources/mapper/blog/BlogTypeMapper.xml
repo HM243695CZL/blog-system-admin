@@ -10,7 +10,7 @@
         <result column="number" property="number" />
         <result column="add_time" property="addTime" />
         <result column="update_time" property="updateTime" />
-        <result column="delete" property="delete" />
+        <result column="deleted" property="deleted" />
     </resultMap>
 
 </mapper>
