@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 12/12/2022 17:53:57
+ Date: 13/12/2022 09:23:20
 */
 
 SET NAMES utf8mb4;
@@ -25,16 +25,12 @@ CREATE TABLE `blog_type`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '专栏名称',
   `desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '专栏简介',
-  `number` int(11) NULL DEFAULT NULL COMMENT '博客数量',
+  `number` int(11) NULL DEFAULT 0 COMMENT '博客数量',
   `add_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of blog_type
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for ums_admin
@@ -51,12 +47,12 @@ CREATE TABLE `ums_admin`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '管理员表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '管理员表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ums_admin
 -- ----------------------------
-INSERT INTO `ums_admin` VALUES (3, 'admin', '123456', '0:0:0:0:0:0:0:1', '2022-12-12 17:27:41', 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220620/lihezong.webp', '2022-06-20 16:11:43', '2022-06-23 10:01:03', 1);
+INSERT INTO `ums_admin` VALUES (3, 'admin', '123456', '0:0:0:0:0:0:0:1', '2022-12-12 22:31:11', 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220620/lihezong.webp', '2022-06-20 16:11:43', '2022-06-23 10:01:03', 1);
 INSERT INTO `ums_admin` VALUES (4, 'test', '123456', '', NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220623/hw-logo.png', '2022-06-23 10:15:19', '2022-06-23 10:15:19', 1);
 
 -- ----------------------------
@@ -68,7 +64,7 @@ CREATE TABLE `ums_admin_role`  (
   `admin_id` int(20) NULL DEFAULT NULL COMMENT '管理员id',
   `role_id` int(20) NULL DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '后台用户和角色关系表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '后台用户和角色关系表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ums_admin_role
@@ -90,7 +86,7 @@ CREATE TABLE `ums_dict`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = MyISAM AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ums_dict
@@ -115,12 +111,13 @@ CREATE TABLE `ums_form`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '表单配置表' ROW_FORMAT = DYNAMIC;
+) ENGINE = MyISAM AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '表单配置表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ums_form
 -- ----------------------------
 INSERT INTO `ums_form` VALUES (2, '用户表单', 'userFormKey', '用户的操作表单', '[{\"type\":\"input\",\"field\":\"username\",\"title\":\"用户名\",\"info\":\"\",\"props\":{\"placeholder\":\"请输入用户名称\",\"clearable\":true},\"_fc_drag_tag\":\"input\",\"hidden\":false,\"display\":true},{\"type\":\"input\",\"field\":\"password\",\"title\":\"密码\",\"info\":\"\",\"props\":{\"placeholder\":\"请输入密码\",\"type\":\"password\"},\"_fc_drag_tag\":\"input\",\"hidden\":false,\"display\":true,\"$required\":false}]', '2022-11-16 17:51:10', '2022-11-16 17:51:10', 1);
+INSERT INTO `ums_form` VALUES (6, '博客类型', 'BlogTypeKey', '博客类型的表单', '[{\"type\":\"input\",\"field\":\"name\",\"title\":\"专栏名称\",\"info\":\"\",\"props\":{\"clearable\":true,\"placeholder\":\"请输入专栏名称\"},\"_fc_drag_tag\":\"input\",\"hidden\":false,\"display\":true,\"$required\":\"请输入专栏名称\"},{\"type\":\"input\",\"field\":\"desc\",\"title\":\"专栏简介\",\"info\":\"\",\"props\":{\"type\":\"textarea\",\"showWordLimit\":true,\"placeholder\":\"请输入专栏名称\",\"clearable\":true,\"rows\":3},\"_fc_drag_tag\":\"input\",\"hidden\":false,\"display\":true,\"$required\":false}]', '2022-12-12 23:35:42', '2022-12-12 23:35:42', 1);
 
 -- ----------------------------
 -- Table structure for ums_menu
@@ -141,7 +138,7 @@ CREATE TABLE `ums_menu`  (
   `icon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '菜单图标',
   `sort` int(10) NULL DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 35 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单表' ROW_FORMAT = DYNAMIC;
+) ENGINE = MyISAM AUTO_INCREMENT = 37 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ums_menu
@@ -154,6 +151,8 @@ INSERT INTO `ums_menu` VALUES (24, 1, '/system/config', 'systemConfig', '/system
 INSERT INTO `ums_menu` VALUES (29, 1, '/system/dict', 'systemDict', '/system/dict', '字典管理', '', 1, 1, 0, 0, 'iconfont icon-728bianjiqi_zitidaxiao', 5);
 INSERT INTO `ums_menu` VALUES (33, 1, '/system/form-config', 'form-config', '/system/form-config', '表单配置', NULL, 0, 1, 0, NULL, 'iconfont icon-xitongshezhi', 6);
 INSERT INTO `ums_menu` VALUES (34, 1, '/system/form-designer', 'form-designer', '/system/form-designer', '表单设计', NULL, 0, 1, 0, NULL, 'iconfont icon-tongzhi1', 7);
+INSERT INTO `ums_menu` VALUES (35, NULL, '/blog', 'blog', 'layout', '博客管理', '', 0, 1, 0, 0, 'iconfont icon-diannao1', 2);
+INSERT INTO `ums_menu` VALUES (36, 35, '/blog/type', 'blogType', '/blog/type', '博客类型', '', 0, 1, 0, 0, 'iconfont icon-wenducanshu-05', 1);
 
 -- ----------------------------
 -- Table structure for ums_role
@@ -170,7 +169,7 @@ CREATE TABLE `ums_role`  (
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name_UNIQUE`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ums_role
@@ -187,19 +186,21 @@ CREATE TABLE `ums_role_menu`  (
   `role_id` int(20) NULL DEFAULT NULL COMMENT '角色id',
   `menu_id` int(20) NULL DEFAULT NULL COMMENT '菜单id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 366 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色和菜单关系表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 376 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色和菜单关系表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ums_role_menu
 -- ----------------------------
-INSERT INTO `ums_role_menu` VALUES (338, 10, 1);
-INSERT INTO `ums_role_menu` VALUES (339, 10, 2);
-INSERT INTO `ums_role_menu` VALUES (340, 10, 4);
-INSERT INTO `ums_role_menu` VALUES (341, 10, 5);
-INSERT INTO `ums_role_menu` VALUES (342, 10, 24);
-INSERT INTO `ums_role_menu` VALUES (343, 10, 29);
-INSERT INTO `ums_role_menu` VALUES (344, 10, 33);
-INSERT INTO `ums_role_menu` VALUES (345, 10, 34);
+INSERT INTO `ums_role_menu` VALUES (366, 10, 1);
+INSERT INTO `ums_role_menu` VALUES (367, 10, 2);
+INSERT INTO `ums_role_menu` VALUES (368, 10, 4);
+INSERT INTO `ums_role_menu` VALUES (369, 10, 5);
+INSERT INTO `ums_role_menu` VALUES (370, 10, 24);
+INSERT INTO `ums_role_menu` VALUES (371, 10, 29);
+INSERT INTO `ums_role_menu` VALUES (372, 10, 33);
+INSERT INTO `ums_role_menu` VALUES (373, 10, 34);
+INSERT INTO `ums_role_menu` VALUES (374, 10, 35);
+INSERT INTO `ums_role_menu` VALUES (375, 10, 36);
 
 -- ----------------------------
 -- Table structure for ums_system
@@ -213,7 +214,7 @@ CREATE TABLE `ums_system`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统配置表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统配置表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ums_system

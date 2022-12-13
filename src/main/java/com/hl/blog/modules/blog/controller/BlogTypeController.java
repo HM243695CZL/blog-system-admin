@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hl.blog.common.api.CommonPage;
 import com.hl.blog.common.api.CommonResult;
 import com.hl.blog.common.log.LogAnnotation;
-import com.hl.blog.common.vo.PageParamsDTO;
 import com.hl.blog.modules.blog.dto.BlogTypePageDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
