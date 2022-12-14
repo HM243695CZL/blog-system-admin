@@ -16,5 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface BlogTypeService extends IService<BlogType> {
 
-    Page<BlogType> getList(BlogTypePageDto paramsDTO);
+    Page<BlogType> pageList(BlogTypePageDto paramsDTO);
 }

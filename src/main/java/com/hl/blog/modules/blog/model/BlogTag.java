@@ -17,32 +17,28 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * <p>
- * 
+ * 博客标签表
  * </p>
  *
  * @author hl243695czyn
- * @since 2022-12-12
+ * @since 2022-12-14
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("blog_type")
-@ApiModel(value="BlogType对象", description="博客类型表")
-public class BlogType implements Serializable {
+@TableName("blog_tag")
+@ApiModel(value="BlogTag对象", description="博客标签表")
+public class BlogTag implements Serializable {
 
     private static final long serialVersionUID=1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "专栏名称")
+    @ApiModelProperty(value = "标签名称")
     @TableField("`name`")
-    @NotBlank(message = "专栏名称不能为空")
-    @TableDataUnique(table = "blog_type", column = "name", message = "专栏名称已存在")
+    @NotBlank(message = "标签名称不能为空")
+    @TableDataUnique(table = "blog_tag", column = "name", message = "标签名称已存在")
     private String name;
-
-    @ApiModelProperty(value = "专栏简介")
-    @TableField("`desc`")
-    private String desc;
 
     @ApiModelProperty(value = "博客数量")
     private Integer number;
