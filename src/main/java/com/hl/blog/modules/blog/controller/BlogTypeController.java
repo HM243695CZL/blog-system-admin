@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hl.blog.common.api.CommonPage;
 import com.hl.blog.common.api.CommonResult;
 import com.hl.blog.common.log.LogAnnotation;
-import com.hl.blog.modules.blog.dto.BlogTypePageDto;
+import com.hl.blog.modules.blog.dto.BlogTypePageDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,8 @@ import com.hl.blog.modules.blog.service.BlogTypeService;
 import com.hl.blog.modules.blog.model.BlogType;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * <p>
@@ -38,7 +40,7 @@ public class BlogTypeController {
     @LogAnnotation()
     @ApiOperation("分页查询")
     @RequestMapping(value = "/page", method = RequestMethod.POST)
-    public CommonResult page(@RequestBody BlogTypePageDto paramsDTO) {
+    public CommonResult page(@RequestBody BlogTypePageDTO paramsDTO) {
         Page<BlogType> typeList = blogTypeService.pageList(paramsDTO);
         return CommonResult.success(CommonPage.restPage(typeList));
     }
@@ -47,7 +49,7 @@ public class BlogTypeController {
     @LogAnnotation()
     @ApiOperation("新增分类")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public CommonResult save(@RequestBody BlogType blogType) {
+    public CommonResult save(@Valid @RequestBody BlogType blogType) {
         return CommonResult.success(blogTypeService.save(blogType));
     }
 
@@ -55,7 +57,7 @@ public class BlogTypeController {
     @LogAnnotation()
     @ApiOperation("更新分类")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public CommonResult update(@RequestBody BlogType blogType) {
+    public CommonResult update(@Valid @RequestBody BlogType blogType) {
         return CommonResult.success(blogTypeService.updateById(blogType));
     }
 

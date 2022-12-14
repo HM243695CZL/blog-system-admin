@@ -3,7 +3,7 @@ package com.hl.blog.modules.blog.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hl.blog.modules.blog.dto.TagPageDto;
+import com.hl.blog.modules.blog.dto.TagPageDTO;
 import com.hl.blog.modules.blog.model.BlogTag;
 import com.hl.blog.modules.blog.mapper.BlogTagMapper;
 import com.hl.blog.modules.blog.service.BlogTagService;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> implements BlogTagService {
 
     @Override
-    public Page<BlogTag> pageList(TagPageDto pageDto) {
+    public Page<BlogTag> pageList(TagPageDTO pageDto) {
         Page<BlogTag> page = new Page<>(pageDto.getPageIndex(), pageDto.getPageSize());
         QueryWrapper<BlogTag> queryWrapper = new QueryWrapper<>();
         if (StrUtil.isNotEmpty(pageDto.getName())) {

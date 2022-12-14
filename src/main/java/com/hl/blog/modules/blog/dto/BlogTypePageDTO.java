@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class BlogTypePageDto extends PageParamsDTO {
+public class BlogTypePageDTO extends PageParamsDTO {
 
     @ApiModelProperty(value = "专栏名称")
     private String name;

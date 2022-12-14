@@ -1,8 +1,7 @@
 package com.hl.blog.modules.blog.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hl.blog.common.vo.PageParamsDTO;
-import com.hl.blog.modules.blog.dto.BlogTypePageDto;
+import com.hl.blog.modules.blog.dto.BlogTypePageDTO;
 import com.hl.blog.modules.blog.model.BlogType;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -16,5 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface BlogTypeService extends IService<BlogType> {
 
-    Page<BlogType> pageList(BlogTypePageDto paramsDTO);
+    Page<BlogType> pageList(BlogTypePageDTO paramsDTO);
 }

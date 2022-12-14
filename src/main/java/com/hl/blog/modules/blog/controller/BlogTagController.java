@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hl.blog.common.api.CommonPage;
 import com.hl.blog.common.api.CommonResult;
 import com.hl.blog.common.log.LogAnnotation;
-import com.hl.blog.modules.blog.dto.TagPageDto;
+import com.hl.blog.modules.blog.dto.TagPageDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,8 @@ import com.hl.blog.modules.blog.service.BlogTagService;
 import com.hl.blog.modules.blog.model.BlogTag;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * <p>
@@ -37,7 +39,7 @@ public class BlogTagController {
     @LogAnnotation()
     @ApiOperation("分页查询")
     @RequestMapping(value = "/page", method = RequestMethod.POST)
-    public CommonResult page(@RequestBody TagPageDto pageDto) {
+    public CommonResult page(@RequestBody TagPageDTO pageDto) {
         Page<BlogTag> pageList =  blogTagService.pageList(pageDto);
         return CommonResult.success(CommonPage.restPage(pageList));
     }
@@ -46,7 +48,7 @@ public class BlogTagController {
     @LogAnnotation()
     @ApiOperation("新增标签")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public CommonResult save(@RequestBody BlogTag blogTag) {
+    public CommonResult save(@Valid @RequestBody BlogTag blogTag) {
         return CommonResult.success(blogTagService.save(blogTag));
     }
 
@@ -54,7 +56,7 @@ public class BlogTagController {
     @LogAnnotation()
     @ApiOperation("更新标签")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public CommonResult update(@RequestBody BlogTag blogTag) {
+    public CommonResult update(@Valid @RequestBody BlogTag blogTag) {
         return CommonResult.success(blogTagService.updateById(blogTag));
     }
 

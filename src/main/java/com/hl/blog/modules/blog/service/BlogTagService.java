@@ -1,7 +1,7 @@
 package com.hl.blog.modules.blog.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hl.blog.modules.blog.dto.TagPageDto;
+import com.hl.blog.modules.blog.dto.TagPageDTO;
 import com.hl.blog.modules.blog.model.BlogTag;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -15,5 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface BlogTagService extends IService<BlogTag> {
 
-    Page<BlogTag> pageList(TagPageDto pageDto);
+    Page<BlogTag> pageList(TagPageDTO pageDto);
 }
