@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hl.blog.modules.blog.mapper.BlogInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hl.blog.modules.blog.model.BlogInfo">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="summary" property="summary" />
+        <result column="content" property="content" />
+        <result column="type" property="type" />
+        <result column="views" property="views" />
+        <result column="tags" property="tags" />
+        <result column="comments" property="comments" />
+        <result column="picture_url" property="pictureUrl" />
+        <result column="is_recommend" property="isRecommend" />
+        <result column="is_reprint" property="isReprint" />
+        <result column="is_appreciation" property="isAppreciation" />
+        <result column="is_comment" property="isComment" />
+        <result column="property" property="property" />
+        <result column="state" property="state" />
+        <result column="add_time" property="addTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+</mapper>
