@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 15/12/2022 14:40:24
+ Date: 15/12/2022 18:00:27
 */
 
 SET NAMES utf8mb4;
@@ -41,11 +41,12 @@ CREATE TABLE `blog_info`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客详情表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客详情表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of blog_info
 -- ----------------------------
+INSERT INTO `blog_info` VALUES (24, '测试用的', '测试用的测试用的测试用的测试用的测试用的', '- h\n- l\n- 2\n- 4\n- 3\n- 6\n- 9\n- 5\n- c\n- z\n- y\n- n', 10, NULL, 4, NULL, '', 1, 1, NULL, 1, 2, 1, '2022-12-15 16:22:50', '2022-12-15 16:22:50', 1);
 
 -- ----------------------------
 -- Table structure for blog_tag
@@ -64,9 +65,9 @@ CREATE TABLE `blog_tag`  (
 -- ----------------------------
 -- Records of blog_tag
 -- ----------------------------
-INSERT INTO `blog_tag` VALUES (4, 'Vue', 0, '2022-12-15 11:41:27', '2022-12-15 11:41:27', 1);
-INSERT INTO `blog_tag` VALUES (5, 'React', 0, '2022-12-15 11:41:33', '2022-12-15 11:41:33', 1);
-INSERT INTO `blog_tag` VALUES (6, 'Angular', 0, '2022-12-15 11:41:41', '2022-12-15 11:41:41', 1);
+INSERT INTO `blog_tag` VALUES (4, 'Vue', 1, '2022-12-15 11:41:27', '2022-12-15 16:22:50', 1);
+INSERT INTO `blog_tag` VALUES (5, 'React', 0, '2022-12-15 11:41:33', '2022-12-15 16:21:52', 1);
+INSERT INTO `blog_tag` VALUES (6, 'Angular', 0, '2022-12-15 11:41:41', '2022-12-15 15:41:13', 1);
 
 -- ----------------------------
 -- Table structure for blog_type
@@ -86,8 +87,8 @@ CREATE TABLE `blog_type`  (
 -- ----------------------------
 -- Records of blog_type
 -- ----------------------------
-INSERT INTO `blog_type` VALUES (10, '开发笔记', NULL, 0, '2022-12-15 11:42:06', '2022-12-15 11:42:06', 1);
-INSERT INTO `blog_type` VALUES (9, '项目实战', NULL, 0, '2022-12-15 11:41:55', '2022-12-15 11:41:55', 1);
+INSERT INTO `blog_type` VALUES (10, '开发笔记', NULL, 1, '2022-12-15 11:42:06', '2022-12-15 16:22:50', 1);
+INSERT INTO `blog_type` VALUES (9, '项目实战', NULL, 0, '2022-12-15 11:41:55', '2022-12-15 16:21:52', 1);
 INSERT INTO `blog_type` VALUES (7, '面试心得', NULL, 0, '2022-12-15 11:09:35', '2022-12-15 11:09:35', 1);
 
 -- ----------------------------
@@ -110,7 +111,7 @@ CREATE TABLE `ums_admin`  (
 -- ----------------------------
 -- Records of ums_admin
 -- ----------------------------
-INSERT INTO `ums_admin` VALUES (3, 'admin', '123456', '0:0:0:0:0:0:0:1', '2022-12-15 09:12:11', 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220620/lihezong.webp', '2022-06-20 16:11:43', '2022-06-23 10:01:03', 1);
+INSERT INTO `ums_admin` VALUES (3, 'admin', '123456', '0:0:0:0:0:0:0:1', '2022-12-15 17:27:17', 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220620/lihezong.webp', '2022-06-20 16:11:43', '2022-06-23 10:01:03', 1);
 INSERT INTO `ums_admin` VALUES (4, 'test', '123456', '', NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220623/hw-logo.png', '2022-06-23 10:15:19', '2022-06-23 10:15:19', 1);
 
 -- ----------------------------
@@ -197,7 +198,7 @@ CREATE TABLE `ums_menu`  (
   `icon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '菜单图标',
   `sort` int(10) NULL DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 39 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单表' ROW_FORMAT = DYNAMIC;
+) ENGINE = MyISAM AUTO_INCREMENT = 40 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ums_menu
