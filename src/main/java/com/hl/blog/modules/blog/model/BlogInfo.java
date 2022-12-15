@@ -13,6 +13,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * <p>
  * 博客详情表
@@ -33,6 +35,7 @@ public class BlogInfo implements Serializable {
     private Integer id;
 
     @ApiModelProperty(value = "博客标题")
+    @NotBlank(message = "博客标题不能为空")
     private String title;
 
     @ApiModelProperty(value = "博客摘要")
@@ -44,11 +47,19 @@ public class BlogInfo implements Serializable {
     @ApiModelProperty(value = "所属专栏")
     private Integer type;
 
+    @ApiModelProperty(value = "专栏名称")
+    @TableField(exist = false)
+    private String typeName;
+
     @ApiModelProperty(value = "浏览量")
     private Integer views;
 
     @ApiModelProperty(value = "标签")
     private Integer tags;
+
+    @ApiModelProperty(value = "标签名称")
+    @TableField(exist = false)
+    private String tagsName;
 
     @ApiModelProperty(value = "评论")
     private String comments;

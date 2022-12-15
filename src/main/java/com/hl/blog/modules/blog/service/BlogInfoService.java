@@ -16,4 +16,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface BlogInfoService extends IService<BlogInfo> {
 
     Page<BlogInfo> pageList(BlogInfoPageDTO paramsDTO);
+
+    Boolean create(BlogInfo blogInfo);
+
+    Boolean update(BlogInfo blogInfo);
+
+    Boolean delete(String id);
 }

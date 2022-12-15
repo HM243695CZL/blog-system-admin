@@ -17,6 +17,8 @@ import com.hl.blog.modules.blog.model.BlogInfo;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 /**
  * <p>
  * 博客详情表 前端控制器
@@ -46,16 +48,16 @@ public class BlogInfoController {
     @LogAnnotation()
     @ApiOperation("新增博客")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public CommonResult save(@RequestBody BlogInfo blogInfo) {
-        return CommonResult.success(blogInfoService.save(blogInfo));
+    public CommonResult save(@Valid @RequestBody BlogInfo blogInfo) {
+        return CommonResult.success(blogInfoService.create(blogInfo));
     }
 
     // 更新
     @LogAnnotation()
     @ApiOperation("更新博客")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public CommonResult update(@RequestBody BlogInfo blogInfo) {
-        return CommonResult.success(blogInfoService.updateById(blogInfo));
+    public CommonResult update(@Valid @RequestBody BlogInfo blogInfo) {
+        return CommonResult.success(blogInfoService.update(blogInfo));
     }
 
     // 删除
@@ -63,7 +65,7 @@ public class BlogInfoController {
     @ApiOperation("删除博客")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public CommonResult delete(@PathVariable String id) {
-        return CommonResult.success( blogInfoService.removeById(id));
+        return CommonResult.success( blogInfoService.delete(id));
     }
 
     // 获取全部

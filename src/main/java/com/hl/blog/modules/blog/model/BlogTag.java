@@ -54,7 +54,7 @@ public class BlogTag implements Serializable {
     private Date updateTime;
 
     @ApiModelProperty(value = "逻辑删除")
-//    @TableLogic(value = "1", delval = "0")
+    @TableLogic(value = "1", delval = "0")
     @JsonIgnore
     private Boolean deleted;
 

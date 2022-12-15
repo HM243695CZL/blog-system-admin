@@ -35,4 +35,36 @@ public class BlogTypeServiceImpl extends ServiceImpl<BlogTypeMapper, BlogType> i
         }
         return page(page, wrapper);
     }
+
+    /**
+     * 分类的博客数量加1
+     * @param type
+     */
+    @Override
+    public void increase(Integer type) {
+        changeTypeNumber(type, "+");
+    }
+
+    /**
+     * 分类的博客数量减1
+     * @param type
+     */
+    @Override
+    public void decrease(Integer type) {
+        changeTypeNumber(type, "-");
+    }
+
+    /**
+     * 改变分类的数量
+     * @param type
+     * @param symbol
+     */
+    public void changeTypeNumber(Integer type, String symbol) {
+        BlogType typeInfo = getById(type);
+        if (typeInfo != null) {
+            Integer number = symbol.equals("+") ? (typeInfo.getNumber() + 1) : (typeInfo.getNumber() - 1);
+            typeInfo.setNumber(number);
+            updateById(typeInfo);
+        }
+    }
 }

@@ -16,4 +16,16 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface BlogTagService extends IService<BlogTag> {
 
     Page<BlogTag> pageList(TagPageDTO pageDto);
+
+    /**
+     * 标签的博客数量增加
+     * @param tags
+     */
+    void increase(Integer tags);
+
+    /**
+     * 标签的博客数量减少
+     * @param tags
+     */
+    void decrease(Integer tags);
 }
