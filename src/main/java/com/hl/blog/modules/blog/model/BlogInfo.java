@@ -1,10 +1,13 @@
 package com.hl.blog.modules.blog.model;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -45,7 +48,7 @@ public class BlogInfo implements Serializable {
     private Integer views;
 
     @ApiModelProperty(value = "标签")
-    private String tags;
+    private Integer tags;
 
     @ApiModelProperty(value = "评论")
     private String comments;
@@ -54,30 +57,36 @@ public class BlogInfo implements Serializable {
     private String pictureUrl;
 
     @ApiModelProperty(value = "是否开启推荐")
-    private Integer isRecommend;
+    private Boolean isRecommend;
 
     @ApiModelProperty(value = "是否开启转载声明")
-    private Integer isReprint;
+    private Boolean isReprint;
 
     @ApiModelProperty(value = "是否开启赞赏")
-    private Integer isAppreciation;
+    private Boolean isAppreciation;
 
     @ApiModelProperty(value = "是否开启评论")
-    private Integer isComment;
+    private Boolean isComment;
 
     @ApiModelProperty(value = "1.原创; 2.转载; 3.翻译")
     private Integer property;
 
-    @ApiModelProperty(value = "状态: 0.草稿; 1: 已发布")
-    private Integer state;
+    @ApiModelProperty(value = "是否发布")
+    private Boolean state;
 
-    @ApiModelProperty(value = "添加时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
     private Date addTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
     @ApiModelProperty(value = "逻辑删除")
+//    @TableLogic(value = "1", delval = "0")
+    @JsonIgnore
     private Boolean deleted;
 
 

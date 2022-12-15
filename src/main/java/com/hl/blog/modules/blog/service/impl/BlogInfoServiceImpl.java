@@ -34,6 +34,10 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
         if (StrUtil.isNotEmpty(paramsDTO.getTags())) {
             queryWrapper.lambda().eq(BlogInfo::getTags, paramsDTO.getTags());
         }
-        return page(page, queryWrapper);
+        Page<BlogInfo> pageList = page(page, queryWrapper);
+        for (BlogInfo item : pageList.getRecords()) {
+            item.setContent(""); // 将content内容置空
+        }
+        return pageList;
     }
 }

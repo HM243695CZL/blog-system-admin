@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 14/12/2022 17:52:27
+ Date: 15/12/2022 14:40:24
 */
 
 SET NAMES utf8mb4;
@@ -28,20 +28,20 @@ CREATE TABLE `blog_info`  (
   `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '博客内容',
   `type` int(11) NULL DEFAULT NULL COMMENT '所属专栏',
   `views` int(10) NULL DEFAULT NULL COMMENT '浏览量',
-  `tags` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标签',
+  `tags` int(11) NULL DEFAULT NULL COMMENT '标签',
   `comments` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评论',
   `picture_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '首图地址',
-  `is_recommend` int(11) NULL DEFAULT NULL COMMENT '是否开启推荐',
-  `is_reprint` int(11) NULL DEFAULT NULL COMMENT '是否开启转载声明',
-  `is_appreciation` int(11) NULL DEFAULT NULL COMMENT '是否开启赞赏',
-  `is_comment` int(11) NULL DEFAULT NULL COMMENT '是否开启评论',
+  `is_recommend` tinyint(1) NULL DEFAULT NULL COMMENT '是否开启推荐',
+  `is_reprint` tinyint(1) NULL DEFAULT NULL COMMENT '是否开启转载声明',
+  `is_appreciation` tinyint(1) NULL DEFAULT NULL COMMENT '是否开启赞赏',
+  `is_comment` tinyint(1) NULL DEFAULT NULL COMMENT '是否开启评论',
   `property` int(11) NULL DEFAULT NULL COMMENT '1.原创; 2.转载; 3.翻译',
-  `state` int(11) NULL DEFAULT NULL COMMENT '状态: 0.草稿; 1: 已发布',
+  `state` tinyint(1) NULL DEFAULT 1 COMMENT '是否发布',
   `add_time` datetime(0) NULL DEFAULT NULL COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客详情表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客详情表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of blog_info
@@ -59,11 +59,14 @@ CREATE TABLE `blog_tag`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客标签表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客标签表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of blog_tag
 -- ----------------------------
+INSERT INTO `blog_tag` VALUES (4, 'Vue', 0, '2022-12-15 11:41:27', '2022-12-15 11:41:27', 1);
+INSERT INTO `blog_tag` VALUES (5, 'React', 0, '2022-12-15 11:41:33', '2022-12-15 11:41:33', 1);
+INSERT INTO `blog_tag` VALUES (6, 'Angular', 0, '2022-12-15 11:41:41', '2022-12-15 11:41:41', 1);
 
 -- ----------------------------
 -- Table structure for blog_type
@@ -78,11 +81,14 @@ CREATE TABLE `blog_type`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客类型表' ROW_FORMAT = DYNAMIC;
+) ENGINE = MyISAM AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客类型表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of blog_type
 -- ----------------------------
+INSERT INTO `blog_type` VALUES (10, '开发笔记', NULL, 0, '2022-12-15 11:42:06', '2022-12-15 11:42:06', 1);
+INSERT INTO `blog_type` VALUES (9, '项目实战', NULL, 0, '2022-12-15 11:41:55', '2022-12-15 11:41:55', 1);
+INSERT INTO `blog_type` VALUES (7, '面试心得', NULL, 0, '2022-12-15 11:09:35', '2022-12-15 11:09:35', 1);
 
 -- ----------------------------
 -- Table structure for ums_admin
@@ -99,12 +105,12 @@ CREATE TABLE `ums_admin`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '管理员表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '管理员表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ums_admin
 -- ----------------------------
-INSERT INTO `ums_admin` VALUES (3, 'admin', '123456', '0:0:0:0:0:0:0:1', '2022-12-14 14:48:47', 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220620/lihezong.webp', '2022-06-20 16:11:43', '2022-06-23 10:01:03', 1);
+INSERT INTO `ums_admin` VALUES (3, 'admin', '123456', '0:0:0:0:0:0:0:1', '2022-12-15 09:12:11', 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220620/lihezong.webp', '2022-06-20 16:11:43', '2022-06-23 10:01:03', 1);
 INSERT INTO `ums_admin` VALUES (4, 'test', '123456', '', NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220623/hw-logo.png', '2022-06-23 10:15:19', '2022-06-23 10:15:19', 1);
 
 -- ----------------------------
@@ -116,7 +122,7 @@ CREATE TABLE `ums_admin_role`  (
   `admin_id` int(20) NULL DEFAULT NULL COMMENT '管理员id',
   `role_id` int(20) NULL DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '后台用户和角色关系表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '后台用户和角色关系表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ums_admin_role
@@ -224,14 +230,13 @@ CREATE TABLE `ums_role`  (
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name_UNIQUE`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ums_role
 -- ----------------------------
 INSERT INTO `ums_role` VALUES (10, '超级管理员', 'admin', '拥有所有权限', 1, '2022-06-20 11:13:09', '2022-11-14 16:15:11', NULL);
 INSERT INTO `ums_role` VALUES (11, '普通管理员', 'common', '拥有部分权限', 1, '2022-06-20 11:27:15', '2022-06-21 11:50:05', 1);
-INSERT INTO `ums_role` VALUES (13, '222', '22', '221212121', NULL, NULL, '2022-12-14 17:15:07', NULL);
 
 -- ----------------------------
 -- Table structure for ums_role_menu
