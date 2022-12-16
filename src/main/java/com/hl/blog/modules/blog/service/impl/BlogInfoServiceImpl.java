@@ -3,6 +3,7 @@ package com.hl.blog.modules.blog.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hl.blog.common.vo.PageParamsDTO;
 import com.hl.blog.modules.blog.dto.BlogInfoPageDTO;
 import com.hl.blog.modules.blog.model.BlogInfo;
 import com.hl.blog.modules.blog.mapper.BlogInfoMapper;
@@ -134,5 +135,18 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
         }
         removeById(id);
         return true;
+    }
+
+    /**
+     * 获取博客列表
+     * @param paramsDTO
+     * @return
+     */
+    @Override
+    public Page<BlogInfo> getBlogList(PageParamsDTO paramsDTO) {
+        Page<BlogInfo> page = new Page<>(paramsDTO.getPageIndex(), paramsDTO.getPageSize());
+        QueryWrapper<BlogInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(BlogInfo::getState, true);
+        return page(page, queryWrapper);
     }
 }

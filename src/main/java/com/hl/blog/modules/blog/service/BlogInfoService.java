@@ -1,6 +1,7 @@
 package com.hl.blog.modules.blog.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hl.blog.common.vo.PageParamsDTO;
 import com.hl.blog.modules.blog.dto.BlogInfoPageDTO;
 import com.hl.blog.modules.blog.model.BlogInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -22,4 +23,11 @@ public interface BlogInfoService extends IService<BlogInfo> {
     Boolean update(BlogInfo blogInfo);
 
     Boolean delete(String id);
+
+    /**
+     * 获取博客列表
+     * @param paramsDTO
+     * @return
+     */
+    Page<BlogInfo> getBlogList(PageParamsDTO paramsDTO);
 }
