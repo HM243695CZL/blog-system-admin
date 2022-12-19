@@ -147,6 +147,13 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
         Page<BlogInfo> page = new Page<>(paramsDTO.getPageIndex(), paramsDTO.getPageSize());
         QueryWrapper<BlogInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(BlogInfo::getState, true);
-        return page(page, queryWrapper);
+        Page<BlogInfo> pageList = page(page, queryWrapper);
+        for (BlogInfo item : pageList.getRecords()) {
+            if (item.getType() != null) {
+                BlogType typeInfo = typeService.getById(item.getType());
+                item.setTypeName(typeInfo.getName());
+            }
+        };
+        return pageList;
     }
 }

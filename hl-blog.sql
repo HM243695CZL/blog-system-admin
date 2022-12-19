@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 15/12/2022 18:00:27
+ Date: 19/12/2022 16:11:42
 */
 
 SET NAMES utf8mb4;
@@ -27,7 +27,7 @@ CREATE TABLE `blog_info`  (
   `summary` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '博客摘要',
   `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '博客内容',
   `type` int(11) NULL DEFAULT NULL COMMENT '所属专栏',
-  `views` int(10) NULL DEFAULT NULL COMMENT '浏览量',
+  `views` int(10) NULL DEFAULT 0 COMMENT '浏览量',
   `tags` int(11) NULL DEFAULT NULL COMMENT '标签',
   `comments` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评论',
   `picture_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '首图地址',
@@ -41,12 +41,14 @@ CREATE TABLE `blog_info`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客详情表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客详情表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of blog_info
 -- ----------------------------
-INSERT INTO `blog_info` VALUES (24, '测试用的', '测试用的测试用的测试用的测试用的测试用的', '- h\n- l\n- 2\n- 4\n- 3\n- 6\n- 9\n- 5\n- c\n- z\n- y\n- n', 10, NULL, 4, NULL, '', 1, 1, NULL, 1, 2, 1, '2022-12-15 16:22:50', '2022-12-15 16:22:50', 1);
+INSERT INTO `blog_info` VALUES (25, '测试test', '摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要', ' - h\n - l\n - 2\n - 4\n - 3\n - 6\n - 9\n - 5\n - c\n - z\n - y\n - n', 10, 0, 4, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20221219/2018e9ac91ec37d9aaf437a1fd5d7070.png', 1, NULL, NULL, NULL, 1, 1, '2022-12-19 10:59:54', '2022-12-19 10:59:54', 1);
+INSERT INTO `blog_info` VALUES (26, 'dsds但是手动挡请选出VCD是', '二位数大V是的女程序第三位多大肆宣传表单', '- a\n- b\n- c\n- d\n- e\n- f', 9, 0, 5, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20221219/695ed861a63d8c0fc51a51f42a5a993b.png', 1, NULL, NULL, NULL, 1, 1, '2022-12-19 13:30:19', '2022-12-19 13:30:19', 1);
+INSERT INTO `blog_info` VALUES (27, 'dsxds 打分非常SV发SV查询大风车', '服务非常V型分数线从东方闪电地方旭东', '- q\n- w\n- e\n- r\n- t\n- y\n- u\n- i', 7, 0, 4, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20221219/dragon.webp', 1, NULL, NULL, NULL, 1, 1, '2022-12-19 13:31:20', '2022-12-19 13:31:20', 1);
 
 -- ----------------------------
 -- Table structure for blog_tag
@@ -65,8 +67,8 @@ CREATE TABLE `blog_tag`  (
 -- ----------------------------
 -- Records of blog_tag
 -- ----------------------------
-INSERT INTO `blog_tag` VALUES (4, 'Vue', 1, '2022-12-15 11:41:27', '2022-12-15 16:22:50', 1);
-INSERT INTO `blog_tag` VALUES (5, 'React', 0, '2022-12-15 11:41:33', '2022-12-15 16:21:52', 1);
+INSERT INTO `blog_tag` VALUES (4, 'Vue', 2, '2022-12-15 11:41:27', '2022-12-19 13:31:20', 1);
+INSERT INTO `blog_tag` VALUES (5, 'React', 1, '2022-12-15 11:41:33', '2022-12-19 13:30:19', 1);
 INSERT INTO `blog_tag` VALUES (6, 'Angular', 0, '2022-12-15 11:41:41', '2022-12-15 15:41:13', 1);
 
 -- ----------------------------
@@ -82,14 +84,17 @@ CREATE TABLE `blog_type`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客类型表' ROW_FORMAT = DYNAMIC;
+) ENGINE = MyISAM AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客类型表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of blog_type
 -- ----------------------------
-INSERT INTO `blog_type` VALUES (10, '开发笔记', NULL, 1, '2022-12-15 11:42:06', '2022-12-15 16:22:50', 1);
-INSERT INTO `blog_type` VALUES (9, '项目实战', NULL, 0, '2022-12-15 11:41:55', '2022-12-15 16:21:52', 1);
-INSERT INTO `blog_type` VALUES (7, '面试心得', NULL, 0, '2022-12-15 11:09:35', '2022-12-15 11:09:35', 1);
+INSERT INTO `blog_type` VALUES (10, '开发笔记', NULL, 1, '2022-12-15 11:42:06', '2022-12-19 10:59:54', 1);
+INSERT INTO `blog_type` VALUES (9, '项目实战', NULL, 1, '2022-12-15 11:41:55', '2022-12-19 13:30:19', 1);
+INSERT INTO `blog_type` VALUES (7, '面试心得', NULL, 1, '2022-12-15 11:09:35', '2022-12-19 13:31:20', 1);
+INSERT INTO `blog_type` VALUES (11, 'html', NULL, 0, '2022-12-19 16:00:51', '2022-12-19 16:00:51', 1);
+INSERT INTO `blog_type` VALUES (12, 'css', NULL, 0, '2022-12-19 16:00:57', '2022-12-19 16:00:57', 1);
+INSERT INTO `blog_type` VALUES (13, 'javascript', NULL, 0, '2022-12-19 16:01:04', '2022-12-19 16:01:04', 1);
 
 -- ----------------------------
 -- Table structure for ums_admin
@@ -111,7 +116,7 @@ CREATE TABLE `ums_admin`  (
 -- ----------------------------
 -- Records of ums_admin
 -- ----------------------------
-INSERT INTO `ums_admin` VALUES (3, 'admin', '123456', '0:0:0:0:0:0:0:1', '2022-12-15 17:27:17', 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220620/lihezong.webp', '2022-06-20 16:11:43', '2022-06-23 10:01:03', 1);
+INSERT INTO `ums_admin` VALUES (3, 'admin', '123456', '0:0:0:0:0:0:0:1', '2022-12-19 15:59:21', 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220620/lihezong.webp', '2022-06-20 16:11:43', '2022-06-23 10:01:03', 1);
 INSERT INTO `ums_admin` VALUES (4, 'test', '123456', '', NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220623/hw-logo.png', '2022-06-23 10:15:19', '2022-06-23 10:15:19', 1);
 
 -- ----------------------------
