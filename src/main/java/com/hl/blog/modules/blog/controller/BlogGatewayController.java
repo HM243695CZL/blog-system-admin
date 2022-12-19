@@ -8,6 +8,7 @@ import com.hl.blog.common.vo.PageParamsDTO;
 import com.hl.blog.modules.blog.model.BlogInfo;
 import com.hl.blog.modules.blog.model.BlogType;
 import com.hl.blog.modules.blog.service.BlogInfoService;
+import com.hl.blog.modules.blog.service.BlogTagService;
 import com.hl.blog.modules.blog.service.BlogTypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,17 +29,20 @@ import java.util.List;
 public class BlogGatewayController {
 
     @Autowired
-    private BlogInfoService blogInfoService;
+    private BlogInfoService infoService;
 
     @Autowired
-    private BlogTypeService blogTypeService;
+    private BlogTypeService typeService;
+
+    @Autowired
+    private BlogTagService tagService;
 
     // 获取博客列表
     @LogAnnotation
     @ApiOperation("获取博客列表")
     @RequestMapping(value = "/getBlogList", method = RequestMethod.POST)
     public CommonResult getBlogList(@RequestBody PageParamsDTO paramsDTO) {
-        Page<BlogInfo> blogList = blogInfoService.getBlogList(paramsDTO);
+        Page<BlogInfo> blogList = infoService.getBlogList(paramsDTO);
         return CommonResult.success(CommonPage.restPage(blogList));
     }
 
@@ -47,6 +51,14 @@ public class BlogGatewayController {
     @ApiOperation("获取分类列表")
     @RequestMapping(value = "/getTypeList", method = RequestMethod.GET)
     public CommonResult getTypeList(){
-        return CommonResult.success(blogTypeService.list());
+        return CommonResult.success(typeService.list());
+    }
+
+    // 获取标签列表
+    @LogAnnotation
+    @ApiOperation("获取标签列表")
+    @RequestMapping(value = "/getTagList", method = RequestMethod.GET)
+    public CommonResult getTagList() {
+        return CommonResult.success(tagService.list());
     }
 }
