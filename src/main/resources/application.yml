@@ -50,4 +50,4 @@ secure:
       - /admin/admin/register
       - /admin/admin/info
       - /admin/admin/logout
-      - /gateway/*
+      - /gateway/**
