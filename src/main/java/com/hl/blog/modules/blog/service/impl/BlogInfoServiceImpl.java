@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hl.blog.common.vo.PageParamsDTO;
+import com.hl.blog.modules.blog.dto.BlogInfoGatewayDTO;
 import com.hl.blog.modules.blog.dto.BlogInfoPageDTO;
 import com.hl.blog.modules.blog.model.BlogInfo;
 import com.hl.blog.modules.blog.mapper.BlogInfoMapper;
@@ -143,10 +144,16 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
      * @return
      */
     @Override
-    public Page<BlogInfo> getBlogList(PageParamsDTO paramsDTO) {
+    public Page<BlogInfo> getBlogList(BlogInfoGatewayDTO paramsDTO) {
         Page<BlogInfo> page = new Page<>(paramsDTO.getPageIndex(), paramsDTO.getPageSize());
         QueryWrapper<BlogInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(BlogInfo::getState, true);
+        if (paramsDTO.getState() != null) {
+            queryWrapper.lambda().eq(BlogInfo::getState, paramsDTO.getState());
+        }
+        if (paramsDTO.getIsRecommend() != null) {
+            queryWrapper.lambda().eq(BlogInfo::getIsRecommend, paramsDTO.getIsRecommend());
+            queryWrapper.orderByDesc("add_time");
+        }
         Page<BlogInfo> pageList = page(page, queryWrapper);
         for (BlogInfo item : pageList.getRecords()) {
             if (item.getType() != null) {
@@ -155,5 +162,24 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
             }
         };
         return pageList;
+    }
+
+    /**
+     * 获取博客详情
+     * @param id
+     * @return
+     */
+    @Override
+    public BlogInfo getBlogInfo(String id) {
+        BlogInfo blogInfo = getById(id);
+        if (blogInfo.getType() != null) {
+            BlogType typeInfo = typeService.getById(blogInfo.getType());
+            blogInfo.setTypeName(typeInfo.getName());
+        }
+        if (blogInfo.getTags() != null) {
+            BlogTag tagInfo = tagService.getById(blogInfo.getTags());
+            blogInfo.setTagsName(tagInfo.getName());
+        }
+        return blogInfo;
     }
 }

@@ -5,6 +5,7 @@ import com.hl.blog.common.api.CommonPage;
 import com.hl.blog.common.api.CommonResult;
 import com.hl.blog.common.log.LogAnnotation;
 import com.hl.blog.common.vo.PageParamsDTO;
+import com.hl.blog.modules.blog.dto.BlogInfoGatewayDTO;
 import com.hl.blog.modules.blog.model.BlogInfo;
 import com.hl.blog.modules.blog.model.BlogType;
 import com.hl.blog.modules.blog.service.BlogInfoService;
@@ -13,10 +14,7 @@ import com.hl.blog.modules.blog.service.BlogTypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,7 +39,7 @@ public class BlogGatewayController {
     @LogAnnotation
     @ApiOperation("获取博客列表")
     @RequestMapping(value = "/getBlogList", method = RequestMethod.POST)
-    public CommonResult getBlogList(@RequestBody PageParamsDTO paramsDTO) {
+    public CommonResult getBlogList(@RequestBody BlogInfoGatewayDTO paramsDTO) {
         Page<BlogInfo> blogList = infoService.getBlogList(paramsDTO);
         return CommonResult.success(CommonPage.restPage(blogList));
     }
@@ -60,5 +58,13 @@ public class BlogGatewayController {
     @RequestMapping(value = "/getTagList", method = RequestMethod.GET)
     public CommonResult getTagList() {
         return CommonResult.success(tagService.list());
+    }
+
+    // 获取博客详情
+    @LogAnnotation
+    @ApiOperation("获取博客详情")
+    @RequestMapping(value = "/getBlogInfo/{id}", method = RequestMethod.GET)
+    public CommonResult getBlogInfo(@PathVariable String id) {
+        return CommonResult.success(infoService.getBlogInfo(id));
     }
 }
