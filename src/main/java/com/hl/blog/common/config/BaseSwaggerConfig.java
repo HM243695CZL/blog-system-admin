@@ -35,6 +35,22 @@ public abstract class BaseSwaggerConfig {
         return docket;
     }
 
+    @Bean
+    public Docket createGatewayApi() {
+        SwaggerProperties swaggerProperties = swaggerProperties();
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo(swaggerProperties))
+                .groupName("博客门户")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getApiBasePackage()))
+                .paths(PathSelectors.regex("/gateway/.*"))
+                .build();
+        if (swaggerProperties.isEnableSecurity()) {
+            docket.securitySchemes(securitySchemes()).securityContexts(securityContexts());
+        }
+        return docket;
+    }
+
 
     private ApiInfo apiInfo(SwaggerProperties swaggerProperties) {
         return new ApiInfoBuilder()
