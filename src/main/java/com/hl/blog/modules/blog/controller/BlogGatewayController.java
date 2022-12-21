@@ -4,10 +4,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hl.blog.common.api.CommonPage;
 import com.hl.blog.common.api.CommonResult;
 import com.hl.blog.common.log.LogAnnotation;
-import com.hl.blog.common.vo.PageParamsDTO;
 import com.hl.blog.modules.blog.dto.BlogInfoGatewayDTO;
 import com.hl.blog.modules.blog.model.BlogInfo;
-import com.hl.blog.modules.blog.model.BlogType;
+import com.hl.blog.modules.blog.service.BlogCommentService;
 import com.hl.blog.modules.blog.service.BlogInfoService;
 import com.hl.blog.modules.blog.service.BlogTagService;
 import com.hl.blog.modules.blog.service.BlogTypeService;
@@ -15,8 +14,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * 博客门户控制器
@@ -34,6 +31,9 @@ public class BlogGatewayController {
 
     @Autowired
     private BlogTagService tagService;
+
+    @Autowired
+    private BlogCommentService commentService;
 
     // 获取博客列表
     @LogAnnotation
@@ -66,5 +66,13 @@ public class BlogGatewayController {
     @RequestMapping(value = "/getBlogInfo/{id}", method = RequestMethod.GET)
     public CommonResult getBlogInfo(@PathVariable String id) {
         return CommonResult.success(infoService.getBlogInfo(id));
+    }
+
+    // 根据博客id获取评论
+    @LogAnnotation
+    @ApiOperation("根据博客id获取评论")
+    @RequestMapping(value = "/getCommentByBlogId/{id}", method = RequestMethod.GET)
+    public CommonResult getCommentByBlogId(@PathVariable String id) {
+        return CommonResult.success(commentService.getCommentByBlogId(id));
     }
 }
