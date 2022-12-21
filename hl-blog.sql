@@ -11,11 +11,38 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 20/12/2022 17:19:41
+ Date: 21/12/2022 14:55:18
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for blog_comment
+-- ----------------------------
+DROP TABLE IF EXISTS `blog_comment`;
+CREATE TABLE `blog_comment`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评论的用户名',
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '邮箱',
+  `blog_id` int(11) NULL DEFAULT NULL COMMENT '博客id',
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评论内容',
+  `parent_id` int(11) NULL DEFAULT NULL COMMENT '父评论id',
+  `is_admin` tinyint(1) NULL DEFAULT NULL COMMENT '是否是管理员',
+  `add_time` datetime(0) NULL DEFAULT NULL COMMENT '添加时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `deleted` int(1) NULL DEFAULT 1 COMMENT '逻辑删除',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客评论表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of blog_comment
+-- ----------------------------
+INSERT INTO `blog_comment` VALUES (23, '小金鱼mm', '小金鱼mm', 26, '@奔跑吧铁蛋: 你的免疫系统杀疯了可能', 22, NULL, '2022-12-21 14:36:05', '2022-12-21 14:36:05', 1);
+INSERT INTO `blog_comment` VALUES (25, '奔跑吧铁蛋', '奔跑吧铁蛋', 26, '@小金鱼mm: 是的，嘎嘎乱杀，癌细胞都杀死了', 22, NULL, '2022-12-21 14:42:15', '2022-12-21 14:42:15', 1);
+INSERT INTO `blog_comment` VALUES (22, '奔跑吧铁蛋', '奔跑吧铁蛋', 26, '为什么我会烧到40度。o(╥﹏╥)o', NULL, NULL, '2022-12-21 14:35:25', '2022-12-21 14:35:25', 1);
+INSERT INTO `blog_comment` VALUES (26, 'ky', 'ky', 26, '挺好的', NULL, NULL, '2022-12-21 14:44:14', '2022-12-21 14:44:14', 1);
+INSERT INTO `blog_comment` VALUES (27, '第三方', '第三方', 26, '@奔跑吧铁蛋: 你们在这升级呢', 22, NULL, '2022-12-21 14:45:41', '2022-12-21 14:45:41', 1);
 
 -- ----------------------------
 -- Table structure for blog_info
