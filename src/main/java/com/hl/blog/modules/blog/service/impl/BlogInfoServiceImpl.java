@@ -54,11 +54,15 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
             item.setContent(""); // 将content内容置空
             if (item.getTags() != null) {
                 BlogTag tagInfo = tagService.getById(item.getTags());
-                item.setTagsName(tagInfo.getName());
+                if (tagInfo != null) {
+                    item.setTagsName(tagInfo.getName());
+                }
             }
             if (item.getType() != null) {
                 BlogType typeInfo = typeService.getById(item.getType());
-                item.setTypeName(typeInfo.getName());
+                if (typeInfo != null) {
+                    item.setTypeName(typeInfo.getName());
+                }
             }
         }
         return pageList;
@@ -152,15 +156,18 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
         }
         if (paramsDTO.getIsRecommend() != null) {
             queryWrapper.lambda().eq(BlogInfo::getIsRecommend, paramsDTO.getIsRecommend());
-            queryWrapper.orderByDesc("add_time");
         }
+        if (paramsDTO.getTypeId() != null) {
+            queryWrapper.lambda().eq(BlogInfo::getType, paramsDTO.getTypeId());
+        }
+        queryWrapper.orderByDesc("add_time");
         Page<BlogInfo> pageList = page(page, queryWrapper);
         for (BlogInfo item : pageList.getRecords()) {
             if (item.getType() != null) {
                 BlogType typeInfo = typeService.getById(item.getType());
                 item.setTypeName(typeInfo.getName());
             }
-        };
+        }
         return pageList;
     }
 

@@ -50,6 +50,18 @@ public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> impl
     }
 
     /**
+     * 更新
+     * @param blogTag
+     * @return
+     */
+    @Override
+    public Boolean update(BlogTag blogTag) {
+        BlogTag tag = getById(blogTag);
+        blogTag.setNumber(tag.getNumber());
+        return updateById(blogTag);
+    }
+
+    /**
      * 改变标签的数量
      * @param tags
      * @param symbol

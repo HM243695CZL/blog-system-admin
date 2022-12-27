@@ -12,4 +12,7 @@ public class BlogInfoGatewayDTO extends PageParamsDTO {
 
     @ApiModelProperty(value = "是否推荐")
     private Boolean isRecommend;
+
+    @ApiModelProperty(value = "分类id")
+    private String typeId;
 }

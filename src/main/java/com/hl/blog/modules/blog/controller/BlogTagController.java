@@ -57,7 +57,7 @@ public class BlogTagController {
     @ApiOperation("更新标签")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public CommonResult update(@Valid @RequestBody BlogTag blogTag) {
-        return CommonResult.success(blogTagService.updateById(blogTag));
+        return CommonResult.success(blogTagService.update(blogTag));
     }
 
     // 删除

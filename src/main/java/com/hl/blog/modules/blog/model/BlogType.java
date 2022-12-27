@@ -1,19 +1,16 @@
 package com.hl.blog.modules.blog.model;
 
 import com.baomidou.mybatisplus.annotation.*;
-
-import java.util.Date;
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.hl.blog.common.aop.TableDataUnique;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -37,7 +34,6 @@ public class BlogType implements Serializable {
     @ApiModelProperty(value = "专栏名称")
     @TableField("`name`")
     @NotBlank(message = "专栏名称不能为空")
-    @TableDataUnique(table = "blog_type", column = "name", message = "专栏名称已存在")
     private String name;
 
     @ApiModelProperty(value = "专栏简介")

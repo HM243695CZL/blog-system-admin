@@ -55,6 +55,18 @@ public class BlogTypeServiceImpl extends ServiceImpl<BlogTypeMapper, BlogType> i
     }
 
     /**
+     * 更新
+     * @param blogType
+     * @return
+     */
+    @Override
+    public Boolean update(BlogType blogType) {
+        BlogType type = getById(blogType);
+        blogType.setNumber(type.getNumber());
+        return updateById(blogType);
+    }
+
+    /**
      * 改变分类的数量
      * @param type
      * @param symbol

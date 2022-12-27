@@ -28,4 +28,6 @@ public interface BlogTypeService extends IService<BlogType> {
      * @param type
      */
     void decrease(Integer type);
+
+    Boolean update(BlogType blogType);
 }

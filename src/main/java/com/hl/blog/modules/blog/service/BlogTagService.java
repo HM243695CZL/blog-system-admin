@@ -28,4 +28,6 @@ public interface BlogTagService extends IService<BlogTag> {
      * @param tags
      */
     void decrease(Integer tags);
+
+    Boolean update(BlogTag blogTag);
 }

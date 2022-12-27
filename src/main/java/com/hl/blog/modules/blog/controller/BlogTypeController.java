@@ -58,7 +58,7 @@ public class BlogTypeController {
     @ApiOperation("更新分类")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public CommonResult update(@Valid @RequestBody BlogType blogType) {
-        return CommonResult.success(blogTypeService.updateById(blogType));
+        return CommonResult.success(blogTypeService.update(blogType));
     }
 
     // 删除

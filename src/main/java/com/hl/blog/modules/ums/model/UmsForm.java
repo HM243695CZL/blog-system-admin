@@ -1,19 +1,16 @@
 package com.hl.blog.modules.ums.model;
 
 import com.baomidou.mybatisplus.annotation.*;
-
-import java.util.Date;
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.hl.blog.common.aop.TableDataUnique;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -41,7 +38,6 @@ public class UmsForm implements Serializable {
 
     @ApiModelProperty(value = "表单key")
     @NotBlank(message = "表单key不能为空")
-    @TableDataUnique(table = "ums_form", column = "form_key", message = "表单key已存在")
     private String formKey;
 
     @ApiModelProperty(value = "表单备注")
