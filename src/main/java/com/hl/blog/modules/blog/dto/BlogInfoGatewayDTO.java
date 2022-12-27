@@ -15,4 +15,7 @@ public class BlogInfoGatewayDTO extends PageParamsDTO {
 
     @ApiModelProperty(value = "分类id")
     private String typeId;
+
+    @ApiModelProperty(value = "标签id")
+    private String tagId;
 }

@@ -160,6 +160,9 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
         if (paramsDTO.getTypeId() != null) {
             queryWrapper.lambda().eq(BlogInfo::getType, paramsDTO.getTypeId());
         }
+        if (paramsDTO.getTagId() != null) {
+            queryWrapper.lambda().eq(BlogInfo::getTags, paramsDTO.getTagId());
+        }
         queryWrapper.orderByDesc("add_time");
         Page<BlogInfo> pageList = page(page, queryWrapper);
         for (BlogInfo item : pageList.getRecords()) {
