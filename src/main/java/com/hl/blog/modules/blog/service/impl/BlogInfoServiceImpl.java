@@ -50,6 +50,7 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
         if (StrUtil.isNotEmpty(paramsDTO.getTags())) {
             queryWrapper.lambda().eq(BlogInfo::getTags, paramsDTO.getTags());
         }
+        queryWrapper.orderByDesc("update_time");
         Page<BlogInfo> pageList = page(page, queryWrapper);
         for (BlogInfo item : pageList.getRecords()) {
             item.setContent(""); // 将content内容置空
@@ -124,6 +125,7 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
                 }
             }
         }
+        blogInfo.setViews(blog.getViews());
         return updateById(blogInfo);
     }
 
@@ -167,7 +169,7 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
         if (paramsDTO.getTagId() != null) {
             queryWrapper.lambda().eq(BlogInfo::getTags, paramsDTO.getTagId());
         }
-        queryWrapper.orderByDesc("add_time");
+        queryWrapper.orderByDesc("update_time");
         Page<BlogInfo> pageList = page(page, queryWrapper);
         for (BlogInfo item : pageList.getRecords()) {
             setTagNameAndTypeName(item);
