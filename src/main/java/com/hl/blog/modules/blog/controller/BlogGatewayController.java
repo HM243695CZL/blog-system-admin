@@ -5,6 +5,7 @@ import com.hl.blog.common.api.CommonPage;
 import com.hl.blog.common.api.CommonResult;
 import com.hl.blog.common.log.LogAnnotation;
 import com.hl.blog.modules.blog.dto.BlogInfoGatewayDTO;
+import com.hl.blog.modules.blog.dto.CommonIdDTO;
 import com.hl.blog.modules.blog.model.BlogInfo;
 import com.hl.blog.modules.blog.service.BlogCommentService;
 import com.hl.blog.modules.blog.service.BlogInfoService;
@@ -74,5 +75,13 @@ public class BlogGatewayController {
     @RequestMapping(value = "/getCommentByBlogId/{id}", method = RequestMethod.GET)
     public CommonResult getCommentByBlogId(@PathVariable String id) {
         return CommonResult.success(commentService.getCommentByBlogId(id));
+    }
+
+    // 更新浏览次数
+    @LogAnnotation
+    @ApiOperation("更新博客浏览次数")
+    @RequestMapping(value = "/updateBlogViews", method = RequestMethod.POST)
+    public CommonResult updateBlogViews(@RequestBody CommonIdDTO idDTO) {
+        return CommonResult.success(infoService.updateBlogViews(idDTO));
     }
 }

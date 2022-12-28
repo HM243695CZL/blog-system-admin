@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hl.blog.common.vo.PageParamsDTO;
 import com.hl.blog.modules.blog.dto.BlogInfoGatewayDTO;
 import com.hl.blog.modules.blog.dto.BlogInfoPageDTO;
+import com.hl.blog.modules.blog.dto.CommonIdDTO;
 import com.hl.blog.modules.blog.model.BlogInfo;
 import com.hl.blog.modules.blog.mapper.BlogInfoMapper;
 import com.hl.blog.modules.blog.model.BlogTag;
@@ -100,27 +101,30 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
         // 如果有标签，当前标签加1
         if (blogInfo.getTags() != null) {
             tagService.increase(blogInfo.getTags());
-            if (blog.getTags().equals(blogInfo.getTags())) {
-                // 当前的标签减1
-                tagService.decrease(blogInfo.getTags());
-            } else {
-                // 之前的标签减1
-                tagService.decrease(blog.getTags());
+            if (blog.getTags() != null) {
+                if (blog.getTags().equals(blogInfo.getTags())) {
+                    // 当前的标签减1
+                    tagService.decrease(blogInfo.getTags());
+                } else {
+                    // 之前的标签减1
+                    tagService.decrease(blog.getTags());
+                }
             }
         }
         // 如果有类型，当前类型加1
         if (blogInfo.getType() != null) {
             typeService.increase(blogInfo.getType());
-            if (blog.getType().equals(blogInfo.getType())) {
-                // 当前的类型减1
-                typeService.decrease(blogInfo.getType());
-            } else {
-                // 之前的类型减1
-                typeService.decrease(blog.getType());
+            if (blog.getType() != null) {
+                if (blog.getType().equals(blogInfo.getType())) {
+                    // 当前的类型减1
+                    typeService.decrease(blogInfo.getType());
+                } else {
+                    // 之前的类型减1
+                    typeService.decrease(blog.getType());
+                }
             }
         }
-        updateById(blogInfo);
-        return true;
+        return updateById(blogInfo);
     }
 
     /**
@@ -166,10 +170,7 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
         queryWrapper.orderByDesc("add_time");
         Page<BlogInfo> pageList = page(page, queryWrapper);
         for (BlogInfo item : pageList.getRecords()) {
-            if (item.getType() != null) {
-                BlogType typeInfo = typeService.getById(item.getType());
-                item.setTypeName(typeInfo.getName());
-            }
+            setTagNameAndTypeName(item);
         }
         return pageList;
     }
@@ -182,6 +183,26 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
     @Override
     public BlogInfo getBlogInfo(String id) {
         BlogInfo blogInfo = getById(id);
+        return setTagNameAndTypeName(blogInfo);
+    }
+
+    /**
+     * 更新博客浏览次数
+     * @param idDTO
+     * @return
+     */
+    @Override
+    public Boolean updateBlogViews(CommonIdDTO idDTO) {
+        BlogInfo blogInfo = getById(idDTO.getId());
+        if(blogInfo.getViews() == null) {
+            blogInfo.setViews(1);
+        } else {
+            blogInfo.setViews(blogInfo.getViews() + 1);
+        }
+        return updateById(blogInfo);
+    }
+
+    public BlogInfo setTagNameAndTypeName(BlogInfo blogInfo) {
         if (blogInfo.getType() != null) {
             BlogType typeInfo = typeService.getById(blogInfo.getType());
             blogInfo.setTypeName(typeInfo.getName());
