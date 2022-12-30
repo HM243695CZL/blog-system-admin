@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * <p>
  * 博客详情表 服务实现类
@@ -126,6 +128,7 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
             }
         }
         blogInfo.setViews(blog.getViews());
+        blogInfo.setAddTime(blog.getAddTime());
         return updateById(blogInfo);
     }
 
@@ -169,7 +172,7 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
         if (paramsDTO.getTagId() != null) {
             queryWrapper.lambda().eq(BlogInfo::getTags, paramsDTO.getTagId());
         }
-        queryWrapper.orderByDesc("update_time");
+        queryWrapper.orderByDesc("add_time");
         Page<BlogInfo> pageList = page(page, queryWrapper);
         for (BlogInfo item : pageList.getRecords()) {
             setTagNameAndTypeName(item);
@@ -185,6 +188,25 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
     @Override
     public BlogInfo getBlogInfo(String id) {
         BlogInfo blogInfo = getById(id);
+        QueryWrapper<BlogInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("add_time");
+        List<BlogInfo> list = list(queryWrapper);
+        int size = list.size();
+        // 获取上一个和下一个博客的id
+        for (int index = 0; index <= size - 1; index++) {
+            if (blogInfo.getId().equals(list.get(index).getId())) {
+                if (index == 0) {
+                    blogInfo.setPrevId(null);
+                    blogInfo.setNextId(list.get(1).getId());
+                } else if (index == size - 1) {
+                    blogInfo.setNextId(null);
+                    blogInfo.setPrevId(list.get(size - 1).getId());
+                } else {
+                    blogInfo.setPrevId(list.get(index - 1).getId());
+                    blogInfo.setNextId(list.get(index + 1).getId());
+                }
+            }
+        }
         return setTagNameAndTypeName(blogInfo);
     }
 

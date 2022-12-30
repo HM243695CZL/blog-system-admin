@@ -85,6 +85,14 @@ public class BlogInfo implements Serializable {
     @ApiModelProperty(value = "是否发布")
     private Boolean state;
 
+    @ApiModelProperty(value = "上一个")
+    @TableField(exist = false)
+    private Integer prevId;
+
+    @ApiModelProperty(value = "下一个")
+    @TableField(exist = false)
+    private Integer nextId;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
