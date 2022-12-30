@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 30/12/2022 10:56:55
+ Date: 30/12/2022 17:36:40
 */
 
 SET NAMES utf8mb4;
@@ -64,7 +64,7 @@ CREATE TABLE `blog_info`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 91 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客详情表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 94 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客详情表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of blog_info
@@ -132,6 +132,9 @@ INSERT INTO `blog_info` VALUES (87, 'vue项目打包取出console.log', 'vue相�
 INSERT INTO `blog_info` VALUES (88, 'canvas将图片转为点阵图', 'js相关', '```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Title</title>\n</head>\n<body>\n    <canvas id=\"canvas\"></canvas>\n</body>\n<script>\n    var canvas = document.getElementById(\"canvas\");\n    var ctx = canvas.getContext(\"2d\");\n\n    var image = new Image();\n    image.src = \"dragon.webp\";\n    image.onload = function(){\n        canvas.width = image.width;\n        canvas.height = image.height;\n\n        ctx.drawImage(image,0,0);\n        var imageData = ctx.getImageData(0,0,image.width,image.height).data;\n        ctx.fillStyle = \"#ffffff\";\n        ctx.fillRect(0,0,image.width,image.height);\n\n        var gap = 6;\n\n        for (var h = 0; h < image.height; h+=gap) {\n            for(var w = 0; w < image.width; w+=gap){\n                var position = (image.width * h + w) * 4;\n                var r = imageData[position], g = imageData[position + 1], b = imageData[position + 2];\n\n                if(r+g+b==0){\n                    ctx.fillStyle = \"#000\";\n                    ctx.fillRect(w,h,4,4);\n                }\n            }\n        }\n    };\n</script>\n</html>\n\n```', 20, 1, 10, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20221229/u=3652603119,1002591341&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2022-12-29 17:45:40', '2022-12-29 17:45:43', 1);
 INSERT INTO `blog_info` VALUES (89, 'react扩展', 'react相关', '- setState\n  - setState更新状态的两种写法\n```js\nsetState(stateChange, [callback]) // 对象式的setState\n/**\n 1.stateChange为状态改变对象(该对象可以体现出状态的改变)\n 2. callback是可选的回调函数，它在状态更新完毕、界面也更新后(render调用后)才被调用\n*/\nsetState(updater, [callback]) // 函数式的setState\n/**\n 1. updater是返回stateChange对象的函数\n 2. updater可以接收到state和props\n 3. callback是可选的回调函数，它在状态更新、界面也更新后(render调用后)才被调用\n*/\n/**\n 总结：\n  1. 对象式的setState是函数式的setState的简写方式(语法糖)\n  2. 使用原则：\n    a. 新状态不依赖于原状态 ==> 使用对象方式\n    b. 新状态依赖于原状态 ==> 使用函数方式\n    c. 如果需要在setState()执行后获取最新的状态数据，要在第二个(callback)函数中获取\n*/\n```\n- lazyload\n  - 路由组件的lazyload\n```js\n  // 1、通过React的lazy函数配合import()函数动态加载路由组件 ====》路由组件代码会被分开打包\nconst Login = lazy(() => import(\'@/pages/login\'));\n```\n```html\n<!-- 2、通过<Suspense>指定在加载得到路由打包文件前显示一个自定义loading界面 -->\n<Suspense fallback={<h1>loading...</h1>}>\n	<Switch>\n    	<Route path=\"/xxx\" component={Xxx} />\n        <Redirect to=\"/login\" />\n    </Switch>\n</Suspense>\n```\n- Hooks\n  - ReactHook/Hook是什么\n```\n1、Hook是React 16.8.0版本增加的新特性、新语法\n2、可以让你再函数组件中使用state以及其他的React特性\n```\n -  三个常用的Hook\n```\n1、State Hook： React.useState()\n2、Effect Hook： React.useEffect()\n3、Ref Hook： React.useRef()\n```\n- State Hook\n```\n1、State Hook让函数组件也可以有state状态，并进行状态数据的读写操作\n2、语法： const [xxx, setXxx] = React.useState(\'hm243695czl\')\n3、useState()说明：\n	参数：第一次初始化指定的值在内部做缓存\n	返回值：包含两个元素的数组，第一个是内部当前状态值，第二个是更新状态值的函数\n4、setXxx()的两种写法：\n		setXxx(newValue)：参数是非函数值，直接指定新的状态值，内部用其覆盖原来的状态值\n		setXxx(value => newValue)：蚕食是函数，接收原本的状态值，返回新的状态值，内部用其覆盖原来的状态值\n```\n- Effect Hook\n```\n1、Effect Hook 可以让你在函数组件中执行副作用操作(用于模拟类组件中的生命周期钩子)\n2、React中的副作用操作：\n	发Ajax请求获取数据\n	设置订阅、启动定时器\n	手动改动真实DOM\n3、语法和说明：\n	useEffect(() => {\n		// 在此可以执行任何带副作用操作\n		return () => { // 在组件卸载前执行\n			// 在此做一些收尾工作，如清除定时器、取消订阅等\n		} \n	}, [stateValue]) // 如果指定的是[]，回调函数只会在第一次render()后执行\n4、可以把useEffect Hook 看做如下三个函数的组件\n	componentDidMount()\n	componentDidUpdate()\n	componentWillUnmount()\n```\n- Ref Hook\n```\n1、Ref Hook可以在函数组件中存储、查找组件内的标签或任意其他数据\n2、语法：const refContainer = useRef()\n3、作用：保存标签对象，功能与React.createRef()一样\n```\n- Fragment\n```\n<Fragment></Fragment>\n<></>\n\n\n作用： 可以不用必须有一个真实的DOM根标签\n```\n- Context：一种组件间的通信方式，常用于【祖组件】与【后代组件】间的通信\n```\n1. 创建Context容器兑现\n  const XxxContext = React.createContext();\n2. 渲染子组件时，外面包裹XxxContext.Provider，通过value属性给后代组件传递数据\n  <xxxContext.Provider value={数据}>\n  </xxxContext.Provider>\n3. 后代组件读取数据\n  第一种方式：仅适用于类组件\n  static contextType = xxxContext // 声明接收context\n  this.context // 读取context中的value数据\n\n  第二种方式：函数组件与类组件都可以\n  <xxxContext.Consumer>\n  {\n    value => ( // value就是context中的value数据\n	// 要显示的内容\n    )\n  }\n  <xxxContext.Consumer>\n```\n**注意：** `在应用开发中一般不用context，一般都用于封装react插件`\n- 组件优化\n  - Component的两个问题\n    - 只要执行setState()，即使不改变数据状态，组件也会重新render() ==> 效率低\n    - 只要当前组件重新render()， 就会自动渲染子组件，纵使子组件没有用到父组件的任何数据 ==> 效率低\n  - 效率高的做法\n    - 只有当组件的state或props数据发生改变时才重新render()\n  - 原因\n    - Component中的shouldComponentUpdate()总是返回true\n  - 解决\n```\n方法1：\n   重写shouldComponentUpdate()方法\n   比较新旧state或props数据，如果数据有变化才返回true，没有变化则返回false\n方法2：\n   使用PureComponent\n   PureComponent重写了shouldComponentUpdate()，只有state或props数据有变化才返回true\n   注意：\n      只是进行state和props数据的签比较，如果只是数据对象内部数据变了，返回false\n      不要直接修改state数据，而是要产生新数据\n项目中一般使用PureComponent来优化\n```\n', 20, 4, 8, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20221229/u=3713262463,3471908827&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2022-12-30 10:04:34', '2022-12-30 09:25:11', 1);
 INSERT INTO `blog_info` VALUES (90, 'css中var()和:root', 'css相关', '- var()\n  - var()函数可以替代元素中任何属性中的值的任何部分\n- :root\n  - :root是一个伪类，表示文档根元素，非IE及IE8及以上浏览器都支持，在:root中声明相当于全局属性，只要当前页面引用了:root segment所在文件，都可以使用var()来引用\n```css\n:root{\n    --main-bg: #f00;\n}\n\nbody{\n    backgournd-color: var(--main-bg);\n}\n```', 20, 6, 12, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20221230/u=2052860268,2113493852&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2022-12-30 09:29:39', '2022-12-30 10:02:04', 1);
+INSERT INTO `blog_info` VALUES (91, 'elasticsearch记录', 'elasticsearch', '- 查看所有节点 `localhost:9200/_cat/nodes`\n- 查看健康状况 `localhost:9200/_cat/health`\n- 查看主节点 `localhost:9200/_cat/master`\n- 查看所有索引 `localhost:9200/_cat/indices`\n\n`PUT customer/external/1`：表示在customer索引下的external类型下保存1号数据为：\n```json\n{\n  name: \"hlczyn\"\n}\n```', 23, 1, 14, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20221230/3.jpg', 1, 1, NULL, NULL, 1, 1, '2022-12-30 13:58:35', '2022-12-30 13:58:46', 1);
+INSERT INTO `blog_info` VALUES (92, '可以', '可以', '可以', 22, 0, 13, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20221230/u=1085418351,3301086122&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2022-12-30 17:14:27', '2022-12-30 17:14:27', 1);
+INSERT INTO `blog_info` VALUES (93, '可以', '可以', '可以', 22, 0, 13, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20221230/u=1085418351,3301086122&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2022-12-30 17:15:12', '2022-12-30 17:15:12', 1);
 
 -- ----------------------------
 -- Table structure for blog_tag
@@ -145,7 +148,7 @@ CREATE TABLE `blog_tag`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客标签表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客标签表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of blog_tag
@@ -156,7 +159,8 @@ INSERT INTO `blog_tag` VALUES (7, 'vue', 16, '2022-12-28 13:12:54', '2022-12-29 
 INSERT INTO `blog_tag` VALUES (10, 'js', 28, '2022-12-28 13:19:02', '2022-12-29 17:45:40', 1);
 INSERT INTO `blog_tag` VALUES (11, '其他', 9, '2022-12-28 14:59:19', '2022-12-29 17:36:22', 1);
 INSERT INTO `blog_tag` VALUES (12, 'css', 5, '2022-12-28 15:49:02', '2022-12-30 09:29:40', 1);
-INSERT INTO `blog_tag` VALUES (13, 'html', 3, '2022-12-28 15:49:06', '2022-12-29 13:39:13', 1);
+INSERT INTO `blog_tag` VALUES (13, 'html', 5, '2022-12-28 15:49:06', '2022-12-30 17:15:12', 1);
+INSERT INTO `blog_tag` VALUES (14, 'elasticsearch', 1, '2022-12-30 13:57:59', '2022-12-30 13:58:35', 1);
 
 -- ----------------------------
 -- Table structure for blog_type
@@ -171,12 +175,13 @@ CREATE TABLE `blog_type`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客类型表' ROW_FORMAT = DYNAMIC;
+) ENGINE = MyISAM AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客类型表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of blog_type
 -- ----------------------------
-INSERT INTO `blog_type` VALUES (22, '其他', '其他的类型', 1, '2022-12-28 14:59:11', '2022-12-28 15:05:42', 1);
+INSERT INTO `blog_type` VALUES (23, 'elasticsearch', 'elasticsearch', 1, '2022-12-30 13:57:49', '2022-12-30 13:58:35', 1);
+INSERT INTO `blog_type` VALUES (22, '其他', '其他的类型', 3, '2022-12-28 14:59:11', '2022-12-30 17:15:12', 1);
 INSERT INTO `blog_type` VALUES (21, '浏览器', '浏览器相关', 12, '2022-12-28 13:14:32', '2022-12-29 11:48:42', 1);
 INSERT INTO `blog_type` VALUES (20, '开发笔记', '开发过程中的笔记', 50, '2022-12-28 13:12:40', '2022-12-30 09:29:40', 1);
 

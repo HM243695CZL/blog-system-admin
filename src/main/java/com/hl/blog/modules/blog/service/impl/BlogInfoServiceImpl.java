@@ -3,16 +3,15 @@ package com.hl.blog.modules.blog.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hl.blog.common.vo.PageParamsDTO;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hl.blog.modules.blog.dto.BlogInfoGatewayDTO;
 import com.hl.blog.modules.blog.dto.BlogInfoPageDTO;
 import com.hl.blog.modules.blog.dto.CommonIdDTO;
-import com.hl.blog.modules.blog.model.BlogInfo;
 import com.hl.blog.modules.blog.mapper.BlogInfoMapper;
+import com.hl.blog.modules.blog.model.BlogInfo;
 import com.hl.blog.modules.blog.model.BlogTag;
 import com.hl.blog.modules.blog.model.BlogType;
 import com.hl.blog.modules.blog.service.BlogInfoService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hl.blog.modules.blog.service.BlogTagService;
 import com.hl.blog.modules.blog.service.BlogTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +51,7 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
         if (StrUtil.isNotEmpty(paramsDTO.getTags())) {
             queryWrapper.lambda().eq(BlogInfo::getTags, paramsDTO.getTags());
         }
-        queryWrapper.orderByDesc("update_time");
+        queryWrapper.orderByDesc("add_time");
         Page<BlogInfo> pageList = page(page, queryWrapper);
         for (BlogInfo item : pageList.getRecords()) {
             item.setContent(""); // 将content内容置空

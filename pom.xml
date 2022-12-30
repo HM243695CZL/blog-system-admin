@@ -31,6 +31,9 @@
         <velocity.version>2.2</velocity.version>
         <oss.version>3.10.2</oss.version>
         <fastjson.version>1.2.54</fastjson.version>
+        <data-elasticsearch.version>2.3.12.RELEASE</data-elasticsearch.version>
+        <elasticsearch.version>7.6.2</elasticsearch.version>
+        <elasticsearch.client.version>7.6.2</elasticsearch.client.version>
     </properties>
     <dependencies>
         <!--SpringBoot通用依赖模块-->
@@ -159,6 +162,21 @@
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+            <version>${data-elasticsearch.version}</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.elasticsearch</groupId>-->
+<!--            <artifactId>elasticsearch</artifactId>-->
+<!--            <version>${elasticsearch.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.elasticsearch.client</groupId>-->
+<!--            <artifactId>elasticsearch-rest-high-level-client</artifactId>-->
+<!--            <version>${elasticsearch.client.version}</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
