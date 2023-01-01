@@ -46,7 +46,7 @@
  - ums 【User Management System】 用户管理系统
  
 ### elasticsearch初始化
- ```java
+ ```
 PUT blog-es-info
 {
   "settings": {
