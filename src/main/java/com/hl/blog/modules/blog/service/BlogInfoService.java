@@ -5,6 +5,7 @@ import com.hl.blog.common.vo.PageParamsDTO;
 import com.hl.blog.modules.blog.dto.BlogInfoGatewayDTO;
 import com.hl.blog.modules.blog.dto.BlogInfoPageDTO;
 import com.hl.blog.modules.blog.dto.CommonIdDTO;
+import com.hl.blog.modules.blog.model.BlogEsInfo;
 import com.hl.blog.modules.blog.model.BlogInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -24,7 +25,7 @@ public interface BlogInfoService extends IService<BlogInfo> {
 
     Boolean update(BlogInfo blogInfo);
 
-    Boolean delete(String id);
+    Boolean delete(Integer id);
 
     /**
      * 获取博客列表
@@ -38,7 +39,7 @@ public interface BlogInfoService extends IService<BlogInfo> {
      * @param id
      * @return
      */
-    BlogInfo getBlogInfo(String id);
+    BlogEsInfo getBlogInfo(Integer id);
 
     /**
      * 更新博客浏览次数

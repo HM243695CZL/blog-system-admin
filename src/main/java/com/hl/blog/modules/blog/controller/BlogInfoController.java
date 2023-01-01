@@ -64,7 +64,7 @@ public class BlogInfoController {
     @LogAnnotation()
     @ApiOperation("删除博客")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public CommonResult delete(@PathVariable String id) {
+    public CommonResult delete(@PathVariable Integer id) {
         return CommonResult.success( blogInfoService.delete(id));
     }
 

@@ -143,6 +143,9 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
         }
         blogInfo.setViews(blog.getViews());
         blogInfo.setAddTime(blog.getAddTime());
+        BlogEsInfo blogEsInfo = new BlogEsInfo();
+        BeanUtils.copyProperties(blogInfo, blogEsInfo);
+        esInfoMapper.save(blogEsInfo);
         return updateById(blogInfo);
     }
 
@@ -153,7 +156,7 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
      */
     @Transactional
     @Override
-    public Boolean delete(String id) {
+    public Boolean delete(Integer id) {
         BlogInfo blogInfo = getById(id);
         if (blogInfo.getTags() != null) {
             tagService.decrease(blogInfo.getTags());
@@ -162,6 +165,7 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
             typeService.decrease(blogInfo.getType());
         }
         removeById(id);
+        esInfoMapper.deleteById(id);
         return true;
     }
 
@@ -200,28 +204,29 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
      * @return
      */
     @Override
-    public BlogInfo getBlogInfo(String id) {
-        BlogInfo blogInfo = getById(id);
-        QueryWrapper<BlogInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("add_time");
-        List<BlogInfo> list = list(queryWrapper);
-        int size = list.size();
-        // 获取上一个和下一个博客的id
-        for (int index = 0; index <= size - 1; index++) {
-            if (blogInfo.getId().equals(list.get(index).getId())) {
-                if (index == 0) {
-                    blogInfo.setPrevId(null);
-                    blogInfo.setNextId(list.get(1).getId());
-                } else if (index == size - 1) {
-                    blogInfo.setNextId(null);
-                    blogInfo.setPrevId(list.get(size - 1).getId());
-                } else {
-                    blogInfo.setPrevId(list.get(index - 1).getId());
-                    blogInfo.setNextId(list.get(index + 1).getId());
-                }
-            }
-        }
-        return setTagNameAndTypeName(blogInfo);
+    public BlogEsInfo getBlogInfo(Integer id) {
+        return esInfoMapper.findById(id).get();
+//        BlogInfo blogInfo = getById(id);
+//        QueryWrapper<BlogInfo> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.orderByDesc("add_time");
+//        List<BlogInfo> list = list(queryWrapper);
+//        int size = list.size();
+//        // 获取上一个和下一个博客的id
+//        for (int index = 0; index <= size - 1; index++) {
+//            if (blogInfo.getId().equals(list.get(index).getId())) {
+//                if (index == 0) {
+//                    blogInfo.setPrevId(null);
+//                    blogInfo.setNextId(list.get(1).getId());
+//                } else if (index == size - 1) {
+//                    blogInfo.setNextId(null);
+//                    blogInfo.setPrevId(list.get(size - 1).getId());
+//                } else {
+//                    blogInfo.setPrevId(list.get(index - 1).getId());
+//                    blogInfo.setNextId(list.get(index + 1).getId());
+//                }
+//            }
+//        }
+//        return setTagNameAndTypeName(blogInfo);
     }
 
     /**

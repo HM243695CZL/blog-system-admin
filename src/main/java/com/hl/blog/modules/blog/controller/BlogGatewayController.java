@@ -65,7 +65,7 @@ public class BlogGatewayController {
     @LogAnnotation
     @ApiOperation("获取博客详情")
     @RequestMapping(value = "/getBlogInfo/{id}", method = RequestMethod.GET)
-    public CommonResult getBlogInfo(@PathVariable String id) {
+    public CommonResult getBlogInfo(@PathVariable Integer id) {
         return CommonResult.success(infoService.getBlogInfo(id));
     }
 

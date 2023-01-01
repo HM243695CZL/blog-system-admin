@@ -27,11 +27,17 @@ public class BlogEsInfo {
     @Field(type = FieldType.Integer)
     private Integer type;
 
+    @Field(type = FieldType.Text)
+    private String typeName;
+
     @Field(type = FieldType.Integer)
     private Integer views;
 
     @Field(type = FieldType.Integer)
     private Integer tags;
+
+    @Field(type = FieldType.Text)
+    private String tagsName;
 
     @Field(type = FieldType.Text)
     private String comments;
@@ -56,6 +62,12 @@ public class BlogEsInfo {
 
     @Field(type = FieldType.Integer)
     private Integer state;
+
+    @Field(type = FieldType.Integer)
+    private Integer prevId;
+
+    @Field(type = FieldType.Integer)
+    private Integer nextId;
 
     @Field(type = FieldType.Text, index = false)
     private Date addTime;
