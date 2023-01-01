@@ -44,3 +44,71 @@
  - pms 【Production Management System】商品管理系统
  - sms 营销管理系统
  - ums 【User Management System】 用户管理系统
+ 
+### elasticsearch初始化
+ ```java
+PUT blog-es-info
+{
+  "settings": {
+    "number_of_shards": 5,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "integer"
+      },
+      "title": {
+        "type": "text"
+      },
+      "summary": {
+        "type": "text"
+      },
+      "content": {
+        "type": "text"
+      },
+      "type": {
+        "type": "integer"
+      },
+      "views": {
+        "type": "integer"
+      },
+      "tags": {
+        "type": "integer"
+      },
+      "comments": {
+        "type": "text"
+      },
+      "pictureUrl": {
+        "type": "text"
+      },
+      "isRecommend": {
+        "type": "boolean"
+      },
+      "isReprint": {
+        "type": "boolean"
+      },
+      "isAppreciation": {
+        "type": "boolean"
+      },
+      "isComment": {
+        "type": "boolean"
+      },
+      "property": {
+        "type": "integer"
+      },
+      "state": {
+        "type": "integer"
+      },
+      "addTime": {
+        "type": "date",
+        "format":"yyyy-MM-dd HH:mm:ss.SSS||yyyy-MM-dd'T'HH:mm:ss.SSS||yyyy-MM-dd HH:mm:ss||epoch_millis"
+      },
+      "updateTime": {
+        "type": "date",
+        "format":"yyyy-MM-dd HH:mm:ss.SSS||yyyy-MM-dd'T'HH:mm:ss.SSS||yyyy-MM-dd HH:mm:ss||epoch_millis"
+      }
+    }
+  }
+}
+```

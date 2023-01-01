@@ -7,17 +7,21 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hl.blog.modules.blog.dto.BlogInfoGatewayDTO;
 import com.hl.blog.modules.blog.dto.BlogInfoPageDTO;
 import com.hl.blog.modules.blog.dto.CommonIdDTO;
+import com.hl.blog.modules.blog.mapper.BlogEsInfoMapper;
 import com.hl.blog.modules.blog.mapper.BlogInfoMapper;
+import com.hl.blog.modules.blog.model.BlogEsInfo;
 import com.hl.blog.modules.blog.model.BlogInfo;
 import com.hl.blog.modules.blog.model.BlogTag;
 import com.hl.blog.modules.blog.model.BlogType;
 import com.hl.blog.modules.blog.service.BlogInfoService;
 import com.hl.blog.modules.blog.service.BlogTagService;
 import com.hl.blog.modules.blog.service.BlogTypeService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -37,6 +41,12 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
 
     @Autowired
     BlogTypeService typeService;
+
+    @Resource
+    BlogInfoMapper blogInfoMapper;
+
+    @Autowired
+    BlogEsInfoMapper esInfoMapper;
 
     @Override
     public Page<BlogInfo> pageList(BlogInfoPageDTO paramsDTO) {
@@ -79,7 +89,8 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
     @Transactional
     @Override
     public Boolean create(BlogInfo blogInfo) {
-        save(blogInfo);
+//        save(blogInfo);
+        blogInfoMapper.insert(blogInfo);
         if (blogInfo.getTags() != null) {
             // 更新标签的博客数量
             tagService.increase(blogInfo.getTags());
@@ -88,6 +99,10 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
             // 更新分类的博客数量
             typeService.increase(blogInfo.getType());
         }
+        BlogEsInfo blogEsInfo = new BlogEsInfo();
+        BeanUtils.copyProperties(blogInfo, blogEsInfo);
+        blogEsInfo.setBlogInfoId(blogInfo.getId());
+        esInfoMapper.save(blogEsInfo);
         return true;
     }
 

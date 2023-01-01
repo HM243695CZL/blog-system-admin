@@ -54,3 +54,4 @@ secure:
       - /admin/admin/info
       - /admin/admin/logout
       - /gateway/**
+      - /crud/**
