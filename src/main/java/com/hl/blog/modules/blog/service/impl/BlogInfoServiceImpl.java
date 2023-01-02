@@ -188,14 +188,7 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
         }
         EsPage<BlogEsInfo> pageList = new EsPage<>();
         for (BlogEsInfo blogEsInfo : list) {
-            if (blogEsInfo.getTags() != null) {
-                BlogTag tagInfo = tagService.getById(blogEsInfo.getTags());
-                blogEsInfo.setTagsName(tagInfo.getName());
-            }
-            if (blogEsInfo.getType() != null) {
-                BlogType typeInfo = typeService.getById(blogEsInfo.getType());
-                blogEsInfo.setTypeName(typeInfo.getName());
-            }
+            setTagNameAndTypeName(blogEsInfo);
         }
         pageList.setList(list);
         pageList.setTotal(count);
@@ -275,9 +268,18 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
      */
     @Override
     public List<BlogEsInfo> getListByContent(BlogInfoGatewayDTO gatewayDTO) {
-        return esInfoMapper.findByContent(gatewayDTO.getContent());
+        List<BlogEsInfo> list = esInfoMapper.findByContent(gatewayDTO.getContent());
+        for (BlogEsInfo blogEsInfo : list) {
+            setTagNameAndTypeName(blogEsInfo);
+        }
+        return list;
     }
 
+    /**
+     * 设置博客的标签名和类型名
+     * @param blogInfo
+     * @return
+     */
     public BlogEsInfo setTagNameAndTypeName(BlogEsInfo blogInfo) {
         if (blogInfo.getType() != null) {
             BlogType typeInfo = typeService.getById(blogInfo.getType());
