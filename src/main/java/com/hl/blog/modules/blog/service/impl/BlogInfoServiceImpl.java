@@ -4,10 +4,11 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hl.blog.common.api.EsPage;
 import com.hl.blog.modules.blog.dto.BlogInfoGatewayDTO;
 import com.hl.blog.modules.blog.dto.BlogInfoPageDTO;
 import com.hl.blog.modules.blog.dto.CommonIdDTO;
-import com.hl.blog.modules.blog.mapper.BlogEsInfoMapper;
+import com.hl.blog.modules.blog.esMapper.BlogEsInfoMapper;
 import com.hl.blog.modules.blog.mapper.BlogInfoMapper;
 import com.hl.blog.modules.blog.model.BlogEsInfo;
 import com.hl.blog.modules.blog.model.BlogInfo;
@@ -18,10 +19,13 @@ import com.hl.blog.modules.blog.service.BlogTagService;
 import com.hl.blog.modules.blog.service.BlogTypeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -175,26 +179,31 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
      * @return
      */
     @Override
-    public Page<BlogInfo> getBlogList(BlogInfoGatewayDTO paramsDTO) {
-        Page<BlogInfo> page = new Page<>(paramsDTO.getPageIndex(), paramsDTO.getPageSize());
-        QueryWrapper<BlogInfo> queryWrapper = new QueryWrapper<>();
-        if (paramsDTO.getState() != null) {
-            queryWrapper.lambda().eq(BlogInfo::getState, paramsDTO.getState());
-        }
+    public EsPage<BlogEsInfo> getBlogList(BlogInfoGatewayDTO paramsDTO) {
+        PageRequest page = PageRequest.of(paramsDTO.getPageIndex() - 1, paramsDTO.getPageSize());
+        List<BlogEsInfo> list = null;
         if (paramsDTO.getIsRecommend() != null) {
-            queryWrapper.lambda().eq(BlogInfo::getIsRecommend, paramsDTO.getIsRecommend());
+            list = esInfoMapper.findAllByIsRecommendTrueOrderByAddTimeDesc(page);
+        } else {
+            list = esInfoMapper.getAllByOrderByAddTimeDesc(page);
         }
-        if (paramsDTO.getTypeId() != null) {
-            queryWrapper.lambda().eq(BlogInfo::getType, paramsDTO.getTypeId());
+        long count = esInfoMapper.count();
+        for (BlogEsInfo blogEsInfo : list) {
+            blogEsInfo.setContent("");
         }
-        if (paramsDTO.getTagId() != null) {
-            queryWrapper.lambda().eq(BlogInfo::getTags, paramsDTO.getTagId());
+        EsPage<BlogEsInfo> pageList = new EsPage<>();
+        for (BlogEsInfo blogEsInfo : list) {
+            if (blogEsInfo.getTags() != null) {
+                BlogTag tagInfo = tagService.getById(blogEsInfo.getTags());
+                blogEsInfo.setTagsName(tagInfo.getName());
+            }
+            if (blogEsInfo.getType() != null) {
+                BlogType typeInfo = typeService.getById(blogEsInfo.getType());
+                blogEsInfo.setTypeName(typeInfo.getName());
+            }
         }
-        queryWrapper.orderByDesc("add_time");
-        Page<BlogInfo> pageList = page(page, queryWrapper);
-        for (BlogInfo item : pageList.getRecords()) {
-            setTagNameAndTypeName(item);
-        }
+        pageList.setList(list);
+        pageList.setTotal(count);
         return pageList;
     }
 
@@ -243,6 +252,34 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
             blogInfo.setViews(blogInfo.getViews() + 1);
         }
         return updateById(blogInfo);
+    }
+
+    /**
+     * 数据同步
+     * @return
+     */
+    @Override
+    public Object syncData() {
+        List<BlogInfo> list = list();
+        List<BlogEsInfo> blogList = new ArrayList<>();
+        for (BlogInfo blogInfo : list) {
+            BlogEsInfo blogEsInfo = new BlogEsInfo();
+            BeanUtils.copyProperties(blogInfo, blogEsInfo);
+            blogEsInfo.setBlogInfoId(blogInfo.getId());
+            blogList.add(blogEsInfo);
+        }
+        esInfoMapper.saveAll(blogList);
+        return true;
+    }
+
+    /**
+     * 获取es中的数据列表
+     * @param gatewayDTO
+     * @return
+     */
+    @Override
+    public Object getInfoByContent(BlogInfoGatewayDTO gatewayDTO) {
+        return esInfoMapper.findByContent(gatewayDTO.getContent());
     }
 
     public BlogInfo setTagNameAndTypeName(BlogInfo blogInfo) {

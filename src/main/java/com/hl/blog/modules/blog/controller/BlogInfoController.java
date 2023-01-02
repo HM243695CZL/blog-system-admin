@@ -84,5 +84,13 @@ public class BlogInfoController {
         return CommonResult.success(blogInfoService.getById(id));
     }
 
+    // 数据同步
+    @LogAnnotation
+    @ApiOperation("数据同步")
+    @RequestMapping(value = "/syncData", method = RequestMethod.GET)
+    public CommonResult syncData() {
+        return CommonResult.success(blogInfoService.syncData());
+    }
+
 }
 

@@ -1,6 +1,7 @@
 package com.hl.blog.modules.blog.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hl.blog.common.api.EsPage;
 import com.hl.blog.common.vo.PageParamsDTO;
 import com.hl.blog.modules.blog.dto.BlogInfoGatewayDTO;
 import com.hl.blog.modules.blog.dto.BlogInfoPageDTO;
@@ -32,7 +33,7 @@ public interface BlogInfoService extends IService<BlogInfo> {
      * @param paramsDTO
      * @return
      */
-    Page<BlogInfo> getBlogList(BlogInfoGatewayDTO paramsDTO);
+    EsPage<BlogEsInfo> getBlogList(BlogInfoGatewayDTO paramsDTO);
 
     /**
      * 获取博客详情
@@ -47,4 +48,17 @@ public interface BlogInfoService extends IService<BlogInfo> {
      * @return
      */
     Boolean updateBlogViews(CommonIdDTO idDTO);
+
+    /**
+     * 数据同步
+     * @return
+     */
+    Object syncData();
+
+    /**
+     * 获取es中的数据列表
+     * @param gatewayDTO
+     * @return
+     */
+    Object getInfoByContent(BlogInfoGatewayDTO gatewayDTO);
 }

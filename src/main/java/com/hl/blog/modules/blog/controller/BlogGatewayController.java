@@ -3,15 +3,18 @@ package com.hl.blog.modules.blog.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hl.blog.common.api.CommonPage;
 import com.hl.blog.common.api.CommonResult;
+import com.hl.blog.common.api.EsPage;
 import com.hl.blog.common.log.LogAnnotation;
 import com.hl.blog.modules.blog.dto.BlogInfoGatewayDTO;
 import com.hl.blog.modules.blog.dto.CommonIdDTO;
+import com.hl.blog.modules.blog.model.BlogEsInfo;
 import com.hl.blog.modules.blog.model.BlogInfo;
 import com.hl.blog.modules.blog.service.BlogCommentService;
 import com.hl.blog.modules.blog.service.BlogInfoService;
 import com.hl.blog.modules.blog.service.BlogTagService;
 import com.hl.blog.modules.blog.service.BlogTypeService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,8 +44,7 @@ public class BlogGatewayController {
     @ApiOperation("获取博客列表")
     @RequestMapping(value = "/getBlogList", method = RequestMethod.POST)
     public CommonResult getBlogList(@RequestBody BlogInfoGatewayDTO paramsDTO) {
-        Page<BlogInfo> blogList = infoService.getBlogList(paramsDTO);
-        return CommonResult.success(CommonPage.restPage(blogList));
+        return CommonResult.success(infoService.getBlogList(paramsDTO));
     }
 
     // 获取分类列表
@@ -84,4 +86,13 @@ public class BlogGatewayController {
     public CommonResult updateBlogViews(@RequestBody CommonIdDTO idDTO) {
         return CommonResult.success(infoService.updateBlogViews(idDTO));
     }
+
+    // 获取es中的数据列表
+    @LogAnnotation
+    @ApiModelProperty("获取es中的数据列表")
+    @RequestMapping(value = "/getListByTitleAndContent", method = RequestMethod.POST)
+    public CommonResult getListByTitleAndContent(@RequestBody BlogInfoGatewayDTO gatewayDTO) {
+        return CommonResult.success(infoService.getInfoByContent(gatewayDTO));
+    }
+
 }
