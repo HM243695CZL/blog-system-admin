@@ -90,9 +90,9 @@ public class BlogGatewayController {
     // 获取es中的数据列表
     @LogAnnotation
     @ApiModelProperty("获取es中的数据列表")
-    @RequestMapping(value = "/getListByTitleAndContent", method = RequestMethod.POST)
-    public CommonResult getListByTitleAndContent(@RequestBody BlogInfoGatewayDTO gatewayDTO) {
-        return CommonResult.success(infoService.getInfoByContent(gatewayDTO));
+    @RequestMapping(value = "/getListByContent", method = RequestMethod.POST)
+    public CommonResult getListByContent(@RequestBody BlogInfoGatewayDTO gatewayDTO) {
+        return CommonResult.success(infoService.getListByContent(gatewayDTO));
     }
 
 }

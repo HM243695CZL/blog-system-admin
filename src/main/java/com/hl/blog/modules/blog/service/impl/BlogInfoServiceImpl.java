@@ -20,12 +20,12 @@ import com.hl.blog.modules.blog.service.BlogTypeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -93,7 +93,6 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
     @Transactional
     @Override
     public Boolean create(BlogInfo blogInfo) {
-//        save(blogInfo);
         blogInfoMapper.insert(blogInfo);
         if (blogInfo.getTags() != null) {
             // 更新标签的博客数量
@@ -118,7 +117,7 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
     @Transactional
     @Override
     public Boolean update(BlogInfo blogInfo) {
-        BlogInfo blog = getById(blogInfo);
+        BlogEsInfo blog = esInfoMapper.findById(blogInfo.getId()).get();
         // 如果有标签，当前标签加1
         if (blogInfo.getTags() != null) {
             tagService.increase(blogInfo.getTags());
@@ -145,11 +144,7 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
                 }
             }
         }
-        blogInfo.setViews(blog.getViews());
-        blogInfo.setAddTime(blog.getAddTime());
-        BlogEsInfo blogEsInfo = new BlogEsInfo();
-        BeanUtils.copyProperties(blogInfo, blogEsInfo);
-        esInfoMapper.save(blogEsInfo);
+        esInfoMapper.save(blog);
         return updateById(blogInfo);
     }
 
@@ -214,28 +209,25 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
      */
     @Override
     public BlogEsInfo getBlogInfo(Integer id) {
-        return esInfoMapper.findById(id).get();
-//        BlogInfo blogInfo = getById(id);
-//        QueryWrapper<BlogInfo> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.orderByDesc("add_time");
-//        List<BlogInfo> list = list(queryWrapper);
-//        int size = list.size();
-//        // 获取上一个和下一个博客的id
-//        for (int index = 0; index <= size - 1; index++) {
-//            if (blogInfo.getId().equals(list.get(index).getId())) {
-//                if (index == 0) {
-//                    blogInfo.setPrevId(null);
-//                    blogInfo.setNextId(list.get(1).getId());
-//                } else if (index == size - 1) {
-//                    blogInfo.setNextId(null);
-//                    blogInfo.setPrevId(list.get(size - 1).getId());
-//                } else {
-//                    blogInfo.setPrevId(list.get(index - 1).getId());
-//                    blogInfo.setNextId(list.get(index + 1).getId());
-//                }
-//            }
-//        }
-//        return setTagNameAndTypeName(blogInfo);
+        BlogEsInfo blogInfo = esInfoMapper.findById(id).get();
+        List<BlogEsInfo> list = esInfoMapper.getAllByOrderByAddTimeDesc();
+        int size = list.size();
+        // 获取上一个和下一个博客的id
+        for (int index = 0; index <= size - 1; index++) {
+            if (blogInfo.getBlogInfoId().equals(list.get(index).getBlogInfoId())) {
+                if (index == 0) {
+                    blogInfo.setPrevId(null);
+                    blogInfo.setNextId(list.get(1).getBlogInfoId());
+                } else if (index == size - 1) {
+                    blogInfo.setNextId(null);
+                    blogInfo.setPrevId(list.get(size - 1).getBlogInfoId());
+                } else {
+                    blogInfo.setPrevId(list.get(index - 1).getBlogInfoId());
+                    blogInfo.setNextId(list.get(index + 1).getBlogInfoId());
+                }
+            }
+        }
+        return setTagNameAndTypeName(blogInfo);
     }
 
     /**
@@ -246,11 +238,15 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
     @Override
     public Boolean updateBlogViews(CommonIdDTO idDTO) {
         BlogInfo blogInfo = getById(idDTO.getId());
+        BlogEsInfo blogEsInfo = esInfoMapper.findById(idDTO.getId()).get();
         if(blogInfo.getViews() == null) {
             blogInfo.setViews(1);
+            blogEsInfo.setViews(1);
         } else {
             blogInfo.setViews(blogInfo.getViews() + 1);
+            blogEsInfo.setViews(blogEsInfo.getViews() + 1);
         }
+        esInfoMapper.save(blogEsInfo);
         return updateById(blogInfo);
     }
 
@@ -278,11 +274,11 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
      * @return
      */
     @Override
-    public Object getInfoByContent(BlogInfoGatewayDTO gatewayDTO) {
+    public List<BlogEsInfo> getListByContent(BlogInfoGatewayDTO gatewayDTO) {
         return esInfoMapper.findByContent(gatewayDTO.getContent());
     }
 
-    public BlogInfo setTagNameAndTypeName(BlogInfo blogInfo) {
+    public BlogEsInfo setTagNameAndTypeName(BlogEsInfo blogInfo) {
         if (blogInfo.getType() != null) {
             BlogType typeInfo = typeService.getById(blogInfo.getType());
             blogInfo.setTypeName(typeInfo.getName());

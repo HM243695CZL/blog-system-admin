@@ -10,6 +10,8 @@ import com.hl.blog.modules.blog.model.BlogEsInfo;
 import com.hl.blog.modules.blog.model.BlogInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 博客详情表 服务类
@@ -60,5 +62,5 @@ public interface BlogInfoService extends IService<BlogInfo> {
      * @param gatewayDTO
      * @return
      */
-    Object getInfoByContent(BlogInfoGatewayDTO gatewayDTO);
+    List<BlogEsInfo> getListByContent(BlogInfoGatewayDTO gatewayDTO);
 }

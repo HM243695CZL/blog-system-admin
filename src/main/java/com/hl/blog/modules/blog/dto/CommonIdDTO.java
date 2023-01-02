@@ -7,5 +7,5 @@ import lombok.Data;
 public class CommonIdDTO {
 
     @ApiModelProperty(value = "id")
-    private String id;
+    private Integer id;
 }
