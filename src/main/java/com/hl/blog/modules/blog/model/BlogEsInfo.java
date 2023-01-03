@@ -61,7 +61,7 @@ public class BlogEsInfo {
     private Integer property;
 
     @Field(type = FieldType.Integer)
-    private Integer state;
+    private Boolean state;
 
     @Field(type = FieldType.Integer)
     private Integer prevId;

@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hl.blog.common.api.CommonPage;
 import com.hl.blog.common.api.CommonResult;
 import com.hl.blog.common.log.LogAnnotation;
+import com.hl.blog.modules.blog.dto.BlogInfoGatewayDTO;
 import com.hl.blog.modules.blog.dto.BlogInfoPageDTO;
+import com.hl.blog.modules.blog.model.BlogEsInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +41,8 @@ public class BlogInfoController {
     @LogAnnotation()
     @ApiOperation("分页查询")
     @RequestMapping(value = "/page", method = RequestMethod.POST)
-    public CommonResult page(@RequestBody BlogInfoPageDTO paramsDTO) {
-        Page<BlogInfo> pageList = blogInfoService.pageList(paramsDTO);
-        return CommonResult.success(CommonPage.restPage(pageList));
+    public CommonResult page(@RequestBody BlogInfoGatewayDTO paramsDTO) {
+        return CommonResult.success(blogInfoService.getBlogList(paramsDTO));
     }
 
     // 新增
@@ -56,7 +57,7 @@ public class BlogInfoController {
     @LogAnnotation()
     @ApiOperation("更新博客")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public CommonResult update(@Valid @RequestBody BlogInfo blogInfo) {
+    public CommonResult update(@Valid @RequestBody BlogEsInfo blogInfo) {
         return CommonResult.success(blogInfoService.update(blogInfo));
     }
 
@@ -80,8 +81,8 @@ public class BlogInfoController {
     @LogAnnotation()
     @ApiOperation("查看博客")
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
-    public CommonResult findOne(@PathVariable String id) {
-        return CommonResult.success(blogInfoService.getById(id));
+    public CommonResult findOne(@PathVariable Integer id) {
+        return CommonResult.success(blogInfoService.view(id));
     }
 
     // 数据同步

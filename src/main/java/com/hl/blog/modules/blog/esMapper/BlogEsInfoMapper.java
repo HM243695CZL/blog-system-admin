@@ -15,6 +15,20 @@ public interface BlogEsInfoMapper extends ElasticsearchRepository<BlogEsInfo, In
     List<BlogEsInfo> findByContent(String content);
 
     /**
+     * 根据标题查询博客
+     * @param title
+     * @return
+     */
+    List<BlogEsInfo> findByTitleOrderByAddTimeDesc(Pageable page, String title);
+
+    /**
+     * 根据标题查询博客总数
+     * @param title
+     * @return
+     */
+    long countAllByTitle(String title);
+
+    /**
      * 按照AddTime降序获取所有博客（分页）
      * @return
      */

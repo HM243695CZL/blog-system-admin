@@ -98,7 +98,7 @@ PUT blog-es-info
         "type": "integer"
       },
       "state": {
-        "type": "integer"
+        "type": "boolean"
       },
       "addTime": {
         "type": "date",

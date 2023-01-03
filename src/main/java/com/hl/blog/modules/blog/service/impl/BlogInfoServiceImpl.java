@@ -27,6 +27,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -116,8 +117,8 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
      */
     @Transactional
     @Override
-    public Boolean update(BlogInfo blogInfo) {
-        BlogEsInfo blog = esInfoMapper.findById(blogInfo.getId()).get();
+    public Boolean update(BlogEsInfo blogInfo) {
+        BlogEsInfo blog = esInfoMapper.findById(blogInfo.getBlogInfoId()).get();
         // 如果有标签，当前标签加1
         if (blogInfo.getTags() != null) {
             tagService.increase(blogInfo.getTags());
@@ -144,8 +145,19 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
                 }
             }
         }
-        esInfoMapper.save(blog);
-        return updateById(blogInfo);
+        // elasticsearch的更新需要全量字段更新
+        BlogEsInfo blogEsInfo = new BlogEsInfo();
+        BeanUtils.copyProperties(blogInfo, blogEsInfo);
+        blogEsInfo.setUpdateTime(new Date());
+        blogEsInfo.setViews(blog.getViews());
+        blogEsInfo.setAddTime(blog.getAddTime());
+        System.out.println(blogEsInfo);
+        esInfoMapper.save(blogEsInfo);
+
+        BlogInfo info = new BlogInfo();
+        BeanUtils.copyProperties(blogInfo, info);
+        info.setId(blogInfo.getBlogInfoId());
+        return updateById(info);
     }
 
     /**
@@ -189,6 +201,10 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
             // 标签
             list = esInfoMapper.findAllByTagsEqualsOrderByAddTimeDesc(page, paramsDTO.getTagId());
             count = esInfoMapper.countAllByTagsEquals(paramsDTO.getTagId());
+        } else if (StrUtil.isNotEmpty(paramsDTO.getTitle())){
+            // 标题-管理端
+            list = esInfoMapper.findByTitleOrderByAddTimeDesc(page, paramsDTO.getTitle());
+            count = esInfoMapper.countAllByTitle(paramsDTO.getTitle());
         } else {
             list = esInfoMapper.getAllByOrderByAddTimeDesc(page);
             count = esInfoMapper.count();
@@ -283,6 +299,16 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
             setTagNameAndTypeName(blogEsInfo);
         }
         return list;
+    }
+
+    /**
+     * 查看博客
+     * @param id
+     * @return
+     */
+    @Override
+    public Object view(Integer id) {
+        return esInfoMapper.findById(id);
     }
 
     /**

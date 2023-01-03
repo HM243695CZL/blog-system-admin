@@ -26,7 +26,7 @@ public interface BlogInfoService extends IService<BlogInfo> {
 
     Boolean create(BlogInfo blogInfo);
 
-    Boolean update(BlogInfo blogInfo);
+    Boolean update(BlogEsInfo blogInfo);
 
     Boolean delete(Integer id);
 
@@ -63,4 +63,6 @@ public interface BlogInfoService extends IService<BlogInfo> {
      * @return
      */
     List<BlogEsInfo> getListByContent(BlogInfoGatewayDTO gatewayDTO);
+
+    Object view(Integer id);
 }
