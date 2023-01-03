@@ -317,11 +317,15 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
     public BlogEsInfo setTagNameAndTypeName(BlogEsInfo blogInfo) {
         if (blogInfo.getType() != null) {
             BlogType typeInfo = typeService.getById(blogInfo.getType());
-            blogInfo.setTypeName(typeInfo.getName());
+            if (typeInfo != null) {
+                blogInfo.setTypeName(typeInfo.getName());
+            }
         }
         if (blogInfo.getTags() != null) {
             BlogTag tagInfo = tagService.getById(blogInfo.getTags());
-            blogInfo.setTagsName(tagInfo.getName());
+            if (tagInfo != null) {
+                blogInfo.setTagsName(tagInfo.getName());
+            }
         }
         return blogInfo;
     }
