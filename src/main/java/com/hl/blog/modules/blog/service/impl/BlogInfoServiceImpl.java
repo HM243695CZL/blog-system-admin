@@ -106,6 +106,7 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
         BlogEsInfo blogEsInfo = new BlogEsInfo();
         BeanUtils.copyProperties(blogInfo, blogEsInfo);
         blogEsInfo.setBlogInfoId(blogInfo.getId());
+        blogEsInfo.setViews(0);
         esInfoMapper.save(blogEsInfo);
         return true;
     }
@@ -256,17 +257,14 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
      */
     @Override
     public Boolean updateBlogViews(CommonIdDTO idDTO) {
-        BlogInfo blogInfo = getById(idDTO.getId());
         BlogEsInfo blogEsInfo = esInfoMapper.findById(idDTO.getId()).get();
-        if(blogInfo.getViews() == null) {
-            blogInfo.setViews(1);
+        if(blogEsInfo.getViews() == null) {
             blogEsInfo.setViews(1);
         } else {
-            blogInfo.setViews(blogInfo.getViews() + 1);
             blogEsInfo.setViews(blogEsInfo.getViews() + 1);
         }
         esInfoMapper.save(blogEsInfo);
-        return updateById(blogInfo);
+        return true;
     }
 
     /**

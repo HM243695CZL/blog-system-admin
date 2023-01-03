@@ -1,14 +1,9 @@
 package com.hl.blog.modules.blog.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hl.blog.common.api.CommonPage;
 import com.hl.blog.common.api.CommonResult;
-import com.hl.blog.common.api.EsPage;
 import com.hl.blog.common.log.LogAnnotation;
 import com.hl.blog.modules.blog.dto.BlogInfoGatewayDTO;
 import com.hl.blog.modules.blog.dto.CommonIdDTO;
-import com.hl.blog.modules.blog.model.BlogEsInfo;
-import com.hl.blog.modules.blog.model.BlogInfo;
 import com.hl.blog.modules.blog.service.BlogCommentService;
 import com.hl.blog.modules.blog.service.BlogInfoService;
 import com.hl.blog.modules.blog.service.BlogTagService;
