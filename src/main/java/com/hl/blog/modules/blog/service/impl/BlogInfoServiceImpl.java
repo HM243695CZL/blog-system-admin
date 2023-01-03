@@ -177,12 +177,22 @@ public class BlogInfoServiceImpl extends ServiceImpl<BlogInfoMapper, BlogInfo> i
     public EsPage<BlogEsInfo> getBlogList(BlogInfoGatewayDTO paramsDTO) {
         PageRequest page = PageRequest.of(paramsDTO.getPageIndex() - 1, paramsDTO.getPageSize());
         List<BlogEsInfo> list = null;
+        long count = 0;
         if (paramsDTO.getIsRecommend() != null) {
+            // 最新推荐
             list = esInfoMapper.findAllByIsRecommendTrueOrderByAddTimeDesc(page);
+        } else if (paramsDTO.getTypeId() != null) {
+            // 类型
+            list = esInfoMapper.findAllByTypeEqualsOrderByAddTimeDesc(page, paramsDTO.getTypeId());
+            count = esInfoMapper.countAllByTypeEquals(paramsDTO.getTypeId());
+        } else if (paramsDTO.getTagId() != null){
+            // 标签
+            list = esInfoMapper.findAllByTagsEqualsOrderByAddTimeDesc(page, paramsDTO.getTagId());
+            count = esInfoMapper.countAllByTagsEquals(paramsDTO.getTagId());
         } else {
             list = esInfoMapper.getAllByOrderByAddTimeDesc(page);
+            count = esInfoMapper.count();
         }
-        long count = esInfoMapper.count();
         for (BlogEsInfo blogEsInfo : list) {
             blogEsInfo.setContent("");
         }

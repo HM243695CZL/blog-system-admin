@@ -2,6 +2,7 @@ package com.hl.blog.modules.blog.dto;
 
 import com.hl.blog.common.vo.PageParamsDTO;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.models.auth.In;
 import lombok.Data;
 
 @Data
@@ -14,10 +15,10 @@ public class BlogInfoGatewayDTO extends PageParamsDTO {
     private Boolean isRecommend;
 
     @ApiModelProperty(value = "分类id")
-    private String typeId;
+    private Integer typeId;
 
     @ApiModelProperty(value = "标签id")
-    private String tagId;
+    private Integer tagId;
 
     @ApiModelProperty(value = "博客标题")
     private String title;
