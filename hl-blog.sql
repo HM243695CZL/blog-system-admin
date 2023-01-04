@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 03/01/2023 17:53:34
+ Date: 04/01/2023 17:27:24
 */
 
 SET NAMES utf8mb4;
@@ -64,7 +64,7 @@ CREATE TABLE `blog_info`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 126 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客详情表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 144 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客详情表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of blog_info
@@ -156,6 +156,24 @@ INSERT INTO `blog_info` VALUES (122, 'IE6默认div标签高度为一个字体显
 INSERT INTO `blog_info` VALUES (123, '在Chrome浏览器中字体不能小于12px', '在Chrome浏览器中字体不能小于12px', '## 在Chrome浏览器中字体不能小于12px\n解决方案：\n```css\np{\n  font-size: 12px;\n  transform: scale(.8);\n}\n```', 24, 0, 12, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230103/u=2052860268,2113493852&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2023-01-03 17:48:51', '2023-01-03 17:48:51', 1);
 INSERT INTO `blog_info` VALUES (124, 'Chrome浏览器记住密码后输入框背景色会变为黄色', 'Chrome浏览器记住密码后输入框背景色会变为黄色', '## Chrome浏览器记住密码后输入框背景色会变为黄色\n解决方案：\n```css\ninput{\n    background-color: transparent !important;\n}\ninput:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{\n    -webkit-text-fill-color: #333 !important;\n    -webkit-box-shadow: 0 0 0 1000px transparent inset !important;\n    background-color: transparent !important;\n    background-image: none !important;\n    transition: background-color 5000s ease-in-out 0s;\n}\n```', 24, NULL, 12, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230103/5.jpg', 1, 1, NULL, NULL, 1, 1, NULL, '2023-01-03 17:50:02', NULL);
 INSERT INTO `blog_info` VALUES (125, 'css3兼容前缀标识', 'css3兼容前缀标识', '## css3兼容前缀标识\n\n\n| 写法    | 内核            | 浏览器        |\n| :------ | --------------- | ------------- |\n| -webkit | webkit渲染引擎  | chrome/safari |\n| -moz-   | gecko渲染引擎   | Firefox       |\n| -ms-    | trident渲染引擎 | IE            |\n| -o-     | opeck渲染引擎   | Opera         |\n\n如：\n```css\n.box{\n    height: 40px;\n    background-color: #f00;\n    color: #fff;\n    -webkit-border-radius: 5px; /* chrome/safari */\n    -moz-border-radius: 5px; /* Firefox */\n    -ms-border-radius: 5px; /* IE */\n    -o-border-radius: 5px;\n    border-radius: 5px;\n}\n```', 24, 0, 12, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230103/u=1210945873,1884155602&fm=253&fmt=auto&app=120&f=JPEG (1).webp', 1, 1, NULL, NULL, 1, 1, '2023-01-03 17:51:49', '2023-01-03 17:51:49', 1);
+INSERT INTO `blog_info` VALUES (126, '事件对象的兼容性', '事件对象的兼容性', '## 事件对象的兼容性\n解决方案：\n```js\ne = ev || window.event\n```', 25, 0, 10, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=2052860268,2113493852&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2023-01-04 09:28:35', '2023-01-04 09:28:35', 1);
+INSERT INTO `blog_info` VALUES (127, '滚动事件的兼容', '滚动事件的兼容', '## 滚动事件的兼容\n解决方案：\n```js\nscrollTop = document.documentElement.scrollTop || document.body.scrollTop\n```', 25, NULL, 10, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=1987026386,2214862957&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, NULL, '2023-01-04 09:32:32', NULL);
+INSERT INTO `blog_info` VALUES (128, '阻止冒泡的兼容', '阻止冒泡的兼容', '## 阻止冒泡的兼容\n解决方案：\n```js\nif (e.stopPropagation) {\n  e.stopPropagation()\n} else {\n  e.cancelBubble = true;\n}\n```', 25, NULL, 10, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=2052860268,2113493852&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, NULL, '2023-01-04 09:34:49', NULL);
+INSERT INTO `blog_info` VALUES (129, '阻止默认行为的兼容', '阻止默认行为的兼容', '## 阻止默认行为的兼容\n解决方案：\n```js\nif (e.preventDefault) {\n e.preventDefault();\n} else {\n  e.returnValue = false;\n}\n```', 25, 0, 10, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=529657752,2140000372&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2023-01-04 09:33:59', '2023-01-04 09:33:59', 1);
+INSERT INTO `blog_info` VALUES (130, '添加事件监听器的兼容', '添加事件监听器的兼容', '## 添加事件监听器的兼容\n解决方案：\n```js\nif (target.addEventListener){\n  target.addEventListener(\'click\', fun, false);\n} else {\n  target.attachEvent(\'onclick\', fun);\n}\n```', 25, 0, 10, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=1987026386,2214862957&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2023-01-04 09:37:06', '2023-01-04 09:37:06', 1);
+INSERT INTO `blog_info` VALUES (131, 'ajax创建对象的兼容', 'ajax创建对象的兼容', '## ajax创建对象的兼容\n解决方案：\n````js\nlet xhr = null;\nif (window.XMLHttpRequest) {\n  xhr = new XMLHttpRequest();\n} else {\n  xhr = new ActiveXObject(\'Microsoft XMLHTTP\');\n}\n```', 25, NULL, 10, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=1987026386,2214862957&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, NULL, '2023-01-04 09:39:05', NULL);
+INSERT INTO `blog_info` VALUES (132, '鼠标按键编码的兼容', '鼠标按键编码的兼容', '## 鼠标按键编码的兼容\n解决方案：\n```js\nfunction mouseE(ev) {\n  var e = ev || window.event;\n  if (ev) {\n    // 标准浏览器\n    return e.button;\n  } else if(window.event) {\n   // IE\n   switch(e.button) {\n      case 1:\n        return 0;\n      case 2:\n        return 2;\n      case 4:\n        return 1;\n    }\n  }\n}\n```', 25, NULL, 10, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=2052860268,2113493852&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, NULL, '2023-01-04 09:46:48', NULL);
+INSERT INTO `blog_info` VALUES (133, 'event对象的x、y属性', 'event对象的x、y属性', '## 在IE中，event对象有x、y属性，Firefox中event.x等效的是event.pageX，而event.pageX在IE中没有\n解决方案：\n```js\nx = event.x ? event.x : event.pageX;\n```', 25, 0, 10, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/3.jpg', 1, 1, NULL, NULL, 1, 1, '2023-01-04 09:46:22', '2023-01-04 09:46:22', 1);
+INSERT INTO `blog_info` VALUES (134, 'event对象的srcElement属性', 'event对象的srcElement属性', '## 在IE下，event对象有srcElement属性，但是没有target属性；在Firefox下，event对象有target对象，但是没有srcElement属性\n解决方案：\n```js\nvar source = ev.target || ev.srcElement;\nvar target = ev.relatedTarget || ev.toElement;\n```', 25, 0, 10, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/4.jpg', 1, 1, NULL, NULL, 1, 1, '2023-01-04 09:49:39', '2023-01-04 09:49:39', 1);
+INSERT INTO `blog_info` VALUES (135, '禁止选取网页内容', '禁止选取网页内容', '## 在Firefox下需要使用css禁止选取网页内容，在IE中使用js禁止\n解决方案：\n```css\n-moz-user-select: none; /* Firefox */\n```\n\n```js\nobj.onSelectStart = function(){\n  // IE\n  return false;\n}\n```', 25, 0, 10, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=202585375,853911840&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2023-01-04 09:51:51', '2023-01-04 09:51:51', 1);
+INSERT INTO `blog_info` VALUES (136, 'innerText在不同浏览器的运行', 'innerText在不同浏览器的运行', '## innerText在IE中能正常运行，但在Firefox中不行\n解决方案：\n```js\nif (navigator.appName.indexOf(\'Explorer\') > -1) {\n  document.getElementById(\'elementId\').innerText = \'IE\';\n} else {\n  document.getElementById(\'elementId\').textContent = \'Firefox\';\n}\n```', 25, 0, 10, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=202585375,853911840&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2023-01-04 09:54:57', '2023-01-04 09:54:57', 1);
+INSERT INTO `blog_info` VALUES (137, '定义常量的关键字', '定义常量的关键字', '- 在Firefox中，可以用const和var关键字来定义常量；在IE中，只能用var关键字来定义常量', 25, 0, 10, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=267767918,2886226332&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2023-01-04 09:56:49', '2023-01-04 09:56:49', 1);
+INSERT INTO `blog_info` VALUES (138, '日常记录', '做一些日常开发记录', '### 常用的链接\n- [前端进阶之旅(面试复习)](https://interview.poetries.top/docs/base.html)\n- [vxe-table](https://vxetable.cn/#/table/start/install)\n- [vue3中文文档](https://www.javascriptc.com/vue3js/guide/introduction.html)\n- [element-plus](https://element-plus.gitee.io/zh-CN/guide/design.html)\n- [lodash中文文档](https://www.lodashjs.com/)\n- [vite中文文档](https://vitejs.cn/vite3-cn/guide/why.html)\n- [富文本编辑器：wangEditor](https://www.wangeditor.com/)\n- [表单生成器：form-create](http://www.form-create.com/v3/guide/)\n- [表单设计器：form-designer](http://designer.form-create.com/guide/)\n- [md编辑器：v-md-editor](https://code-farmer-i.github.io/vue-markdown-editor/zh/quick-start.html#%E5%AE%89%E8%A3%85)\n- [后台管理系统(vue3)项目参考](https://gitee.com/lyt-top/vue-next-admin)\n- [阿里云部署web项目](http://t.zoukankan.com/it-deepinmind-p-13047846.html)\n\n### 其他记录\n- ngrok前端隧道：171956196873\n- ngrok后端隧道：172426374369\n- 公众订阅号邮箱：hw243695czlm@163.com  密码：huang243695czl', 27, NULL, 19, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=2052860268,2113493852&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, NULL, '2023-01-04 10:47:42', NULL);
+INSERT INTO `blog_info` VALUES (139, 'webpack性能优化', 'webpack性能优化', '## webpack性能优化\n- 减少webpack打包时间\n1. 优化`Loader`\n  优化Loader，最影响打包效率的是Babel，因为Babel会将代码转为字符串生成AST【抽象语法树】，然后对AST进行转变生成新的代码。项目越大，***转换代码越多，效率就越低***\n  可以将babel编译过的文件缓存起来`loader: \'babel-loader?cacheDirectory=true\'`\n2. `HappyPack`\n  受限于Node是单线程运行的，所以webpack在打包的时候也是单线程，***`HappyPack`可以将`Loader`的同步执行转换为并行的***\n3. `DllPlugin`\n  ***`DllPlugin`可以将特定的类库提前打包然后引入***。这种方式可以极大的减少打包类库的次数，只有当类库更新版本才需要重新打包，并且也实现了将公共代码抽离成单独文件的优化方案。\n4. 代码压缩\n  在webpack3中，一般使用`UglifyJS`来压缩代码，但这是单线程运行的，可以使用`webpack-parallel-uglify-plugin`来并行运行`UglifyJS`提高效率。\n在webpack4中， 只需要将`mode`设置为`production`就能开启以上功能。\n5. 小优化点\n  `resolve.extensions`：用来表明文件后缀列表，默认查找顺序是`[\'.js\', \'.json\']`，如果你的导入文件没有添加后缀就会按照这个顺序查找文件，应该尽可能的减少后缀列表长度，然后将出现频率高的后缀排在前面\n  `resolve.alias`：可以通过别名的方式来映射一个路径，能让webpack更快找到路径\n  `module.noParse`：如果确定一个文件下没有其他依赖，就可以使用该属性让webpack不扫描该文件，这种方式对于大型的类库很有帮助\n```js\n// webpack.conf.js\nmodule.exports = {\n  module: {\n    rules: [\n      {\n        test: /\\.js/, // js文件才使用babel\n        loader: \'happypack/loader?id=happybabel\'\n        include: [resolve(\'src\')], // 只在src文件夹下查找\n        exclude: /node_modules/ // 不会去查找的路径\n      }\n    ]\n  },\n  plugins: [\n   new HappyPack({\n     id: \'happybabel\',\n     loaders: [\'babel-loader?cacheDirectory\'],\n     threads: 4 // 开启4个线程\n   }),\n   new webpack.DllReferencePlugin({\n     context: __dirname,\n     manifext: require(\'./dist/vendor-manifest.json\'), // manifest就之前打包出来的json文件\n   })\n  ]\n}\n```\n```js\n// 单独配置在一个文件中\n// webpack.dll.conf.js\nconst path = require(\'path\');\nconst webpack = require(\'webpack\');\nmodule.exports = {\n  entry: {\n    // 想统一打包的类库\n    vendor: [\'react\']\n  },\n  output: {\n    path: path.join(__dirname, \'dist\'),\n    filename: \'[name].dll.js\',\n    library: \'[name]-[hash]\'\n  },\n  plugins: [\n    new webpack.DllPlugin({\n      name: \'[name]-[hash]\', // name必须和output.library一致\n      context: __dirname, // 该属性需要与DllReferencePlugin中一致\n      path: path.join(__dirname, \'dist\', \'[name]-manifest.json\')\n    })\n  ]\n}\n```\n- 减少webpack打包后的文件体积\n1. 按需加载\n  使用按需加载，将每个路由页面单独打包为一个文件\n2. `Scope Hoisting`\n  `Scope Hoisting`会分析出模块之间的依赖关系，尽可能的把打包出来的模块合并到一个函数中去\n3. `Tree Shaking`、\n  `Tree Shaking`可以实现删除项目找那个未被引用的代码\n    ', 28, NULL, 20, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=267767918,2886226332&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, 1, 1, 1, 1, NULL, '2023-01-04 13:03:46', NULL);
+INSERT INTO `blog_info` VALUES (140, '设计模式-工厂模式', '工厂模式', '## 设计模式-工厂模式\n代码示例：\n```js\nclass Man {\n  constructor(name) {\n    this.name = name;\n  }\n  alertName (){\n    alert(this.name);\n  }\n}\n\nclass Factory{\n  static create(name) {\n    return new Man(name);\n  }\n}\n\nFactory.create(\'hl243695czyn\').alertName()\n```\n- 当然工厂模式并不仅仅是用来new出实例\n- 假设有一份很复杂的代码需要用户去调用，但是用户并不关心这些复杂的代码，只需要提供一个接口去调用，用户只负责传递需要的参数，至于这些参数怎么使用，内部有什么逻辑是不关心的，只需要最后返回一个实例。这个构造就是工厂\n- 工厂起到的作用就是隐藏了创建实例的复杂度，只需要提供一个接口，简单清晰。\n- 在Vue源码中，创建异步组件就是一个工厂模式的使用\n```js\nexport function createComponent(\n  Ctor: Class<Component> | Function | Object | void,\n  data: ?VNodeData,\n  context: Component,\n  children: ?Array<VNode>,\n  tag?: string\n): VNode | Array<VNode> | void {\n  // 处理逻辑 ...\n  const vnode = new VNode(\n    `vue-component-${Ctor.cid}${name ? `-${name}` : \'\'}`,\n    data, undefined, undefined, undefined, context,\n    { \n      Ctor, \n      propsData, \n      listeners, \n      tag, \n      children \n    },\n    asyncFactory\n  )\n}\n```\n在上述代码中，只需要调用`createComponent`传入参数就能创建一个组件实例，但是创建这个实例是很复杂的过程，工厂帮助我们隐藏了这个复杂的过程，只需要一句代码调用就能实现功能。', 29, NULL, 21, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=529657752,2140000372&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, NULL, '2023-01-04 13:22:42', NULL);
+INSERT INTO `blog_info` VALUES (141, '设计模式-单例模式', '单例模式', '## 设计模式-单例模式\n- 单例模式很常用，比如全局缓存，全局状态管理等这些只需要一个对象，就可以使用单例模式\n- 单例模式的核心就是保证全局只有一个对象可以访问。因为JS是门无类的语言，所以别的语言实现单例的方式并不能套入JS中，我们只需要用一个变量确保实例只创建一次就行，代码示例如下：\n```js\nclass Singleton{\n  constructor(){ }\n}\nSingleton.getInstance = (function(){\n  let instance;\n  return function(){\n    if(!instance) {\n      instance = new Singleton();\n    }\n    return instance;\n  }\n})()\n\nlet s1 = Singleton.getInstance();\nlet s2 = Singleton.getInstance();\nconsole.lg(s1 === s2); // true\n```\n在Vuex源码中，通过一个外部变量来控制只安装一次Vuex\n```js\nlet Vue; // bind on install\nexport function install (_Vue) {\n  if (Vue && _Vue === Vue) {\n    // 如果发现Vue有值，就不重新创建\n    return false;\n  }\n  Vue = _Vue;\n  applyMixin(Vue);\n}\n```', 29, NULL, 21, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=1987026386,2214862957&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, NULL, '2023-01-04 14:51:32', NULL);
+INSERT INTO `blog_info` VALUES (142, '设计模式-适配器模式', '适配器模式', '## 设计模式-适配器模式\n- 适配器用来解决两个接口不兼容的情况，不需要改变已有的接口，通过包装一层的方式实现两个接口的正常协作，实例代码如下：\n```js\nclass Plug{\n  getName(){\n    return \'hl243695czyn\';\n  }\n}\nclass Target{\n  constructor(){\n    this.plug = new Plug();\n  }\n  getName(){\n    return this.plug.getName() + \' love\';\n  }\n}\nlet target = new Target();\ntarget.getName(); // hl243695czyn love\n```\n在Vue中，经常使用到适配器模式，如父组件传递给子组件一个时间戳属性，组件内部需要将时间戳转为正常的日期显示，一般会使用`computed`来做转换这件事情，这个过程就使用了适配器模式', 29, 0, 21, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=2052860268,2113493852&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2023-01-04 15:22:05', '2023-01-04 15:22:05', 1);
+INSERT INTO `blog_info` VALUES (143, '设计模式-装饰模式', '装饰模式', '## 设计模式-装饰模式\n- 装饰模式不需要改变已有的接口，作用是给对象添加功能。\n示例代码如下：\n```js\nimport { connect } from \'react-redux\';\nclass MyComponent extends React.Component{\n  // ...\n}\nexport default connect(mapStateToProps)(MyComponent)\n```', 29, 0, 21, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=529657752,2140000372&fm=253&fmt=auto&app=138&f=JPEG.webp', NULL, NULL, NULL, NULL, 1, 1, '2023-01-04 16:40:41', '2023-01-04 16:40:41', 1);
 
 -- ----------------------------
 -- Table structure for blog_tag
@@ -169,19 +187,26 @@ CREATE TABLE `blog_tag`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客标签表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客标签表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of blog_tag
 -- ----------------------------
 INSERT INTO `blog_tag` VALUES (9, 'angular', 0, '2022-12-28 13:14:57', '2022-12-28 13:14:57', 0);
 INSERT INTO `blog_tag` VALUES (8, 'react', 2, '2022-12-28 13:14:50', '2022-12-30 09:24:02', 1);
-INSERT INTO `blog_tag` VALUES (7, 'vue', 16, '2022-12-28 13:12:54', '2022-12-29 17:44:44', 1);
-INSERT INTO `blog_tag` VALUES (10, 'js', 35, '2022-12-28 13:19:02', '2023-01-03 17:10:54', 1);
+INSERT INTO `blog_tag` VALUES (7, 'vue', 16, '2022-12-28 13:12:54', '2023-01-04 10:16:52', 1);
+INSERT INTO `blog_tag` VALUES (10, 'js', 47, '2022-12-28 13:19:02', '2023-01-04 09:56:49', 1);
 INSERT INTO `blog_tag` VALUES (11, '其他', 9, '2022-12-28 14:59:19', '2023-01-03 14:38:57', 0);
 INSERT INTO `blog_tag` VALUES (12, 'css', 30, '2022-12-28 15:49:02', '2023-01-03 17:51:49', 1);
 INSERT INTO `blog_tag` VALUES (13, 'html', 3, '2022-12-28 15:49:06', '2023-01-03 14:46:04', 1);
 INSERT INTO `blog_tag` VALUES (14, 'elasticsearch', 1, '2022-12-30 13:57:59', '2023-01-03 15:15:09', 1);
+INSERT INTO `blog_tag` VALUES (15, 'html面试题', 0, NULL, '2023-01-04 10:07:52', 1);
+INSERT INTO `blog_tag` VALUES (16, 'css面试题', 0, '2023-01-04 10:07:48', '2023-01-04 10:07:48', 1);
+INSERT INTO `blog_tag` VALUES (17, 'js面试题', 0, '2023-01-04 10:07:58', '2023-01-04 10:07:58', 1);
+INSERT INTO `blog_tag` VALUES (18, 'vue面试题', 0, '2023-01-04 10:08:04', '2023-01-04 10:38:30', 1);
+INSERT INTO `blog_tag` VALUES (20, 'webpack', 1, '2023-01-04 10:58:40', '2023-01-04 13:03:46', 1);
+INSERT INTO `blog_tag` VALUES (19, '其他', 1, '2023-01-04 10:38:11', '2023-01-04 10:47:42', 1);
+INSERT INTO `blog_tag` VALUES (21, '设计模式', 4, '2023-01-04 13:09:01', '2023-01-04 16:40:43', 1);
 
 -- ----------------------------
 -- Table structure for blog_type
@@ -196,17 +221,21 @@ CREATE TABLE `blog_type`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客类型表' ROW_FORMAT = DYNAMIC;
+) ENGINE = MyISAM AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客类型表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of blog_type
 -- ----------------------------
-INSERT INTO `blog_type` VALUES (25, 'js兼容性', 'js兼容性问题', 1, '2023-01-03 16:19:25', '2023-01-03 16:40:10', 1);
+INSERT INTO `blog_type` VALUES (28, '性能优化', '性能优化', 1, '2023-01-04 10:58:28', '2023-01-04 13:03:46', 1);
+INSERT INTO `blog_type` VALUES (27, '其他', '记录的东西比较杂', 1, '2023-01-04 10:38:05', '2023-01-04 10:47:42', 1);
+INSERT INTO `blog_type` VALUES (26, '面试相关', '面试相关记录', 0, '2023-01-04 10:07:25', '2023-01-04 10:38:30', 1);
+INSERT INTO `blog_type` VALUES (25, 'js兼容性', 'js兼容性问题', 13, '2023-01-03 16:19:25', '2023-01-04 09:56:49', 1);
 INSERT INTO `blog_type` VALUES (24, 'css兼容性', 'css兼容性问题', 23, '2023-01-03 16:19:08', '2023-01-03 17:51:49', 1);
 INSERT INTO `blog_type` VALUES (23, 'elasticsearch', 'elasticsearch', 1, '2022-12-30 13:57:49', '2023-01-03 15:15:09', 1);
 INSERT INTO `blog_type` VALUES (22, '其他', '其他的类型', 1, '2022-12-28 14:59:11', '2023-01-03 14:38:52', 0);
 INSERT INTO `blog_type` VALUES (21, '浏览器', '浏览器相关', 10, '2022-12-28 13:14:32', '2023-01-03 16:40:18', 1);
 INSERT INTO `blog_type` VALUES (20, '开发笔记', '开发过程中的笔记', 52, '2022-12-28 13:12:40', '2023-01-03 16:40:18', 1);
+INSERT INTO `blog_type` VALUES (29, '设计模式', '设计模式相关', 4, '2023-01-04 13:08:50', '2023-01-04 16:40:44', 1);
 
 -- ----------------------------
 -- Table structure for ums_admin
@@ -228,7 +257,7 @@ CREATE TABLE `ums_admin`  (
 -- ----------------------------
 -- Records of ums_admin
 -- ----------------------------
-INSERT INTO `ums_admin` VALUES (3, 'admin', '123456', '0:0:0:0:0:0:0:1', '2023-01-03 16:15:17', 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220620/lihezong.webp', '2022-06-20 16:11:43', '2022-06-23 10:01:03', 1);
+INSERT INTO `ums_admin` VALUES (3, 'admin', '123456', '0:0:0:0:0:0:0:1', '2023-01-04 14:39:31', 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220620/lihezong.webp', '2022-06-20 16:11:43', '2022-06-23 10:01:03', 1);
 INSERT INTO `ums_admin` VALUES (4, 'test', '123456', '', NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220623/hw-logo.png', '2022-06-23 10:15:19', '2022-06-23 10:15:19', 1);
 
 -- ----------------------------
