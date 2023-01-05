@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 04/01/2023 17:27:24
+ Date: 05/01/2023 17:45:32
 */
 
 SET NAMES utf8mb4;
@@ -64,7 +64,7 @@ CREATE TABLE `blog_info`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) NULL DEFAULT 1 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 144 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客详情表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 147 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客详情表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of blog_info
@@ -174,6 +174,9 @@ INSERT INTO `blog_info` VALUES (140, '设计模式-工厂模式', '工厂模式'
 INSERT INTO `blog_info` VALUES (141, '设计模式-单例模式', '单例模式', '## 设计模式-单例模式\n- 单例模式很常用，比如全局缓存，全局状态管理等这些只需要一个对象，就可以使用单例模式\n- 单例模式的核心就是保证全局只有一个对象可以访问。因为JS是门无类的语言，所以别的语言实现单例的方式并不能套入JS中，我们只需要用一个变量确保实例只创建一次就行，代码示例如下：\n```js\nclass Singleton{\n  constructor(){ }\n}\nSingleton.getInstance = (function(){\n  let instance;\n  return function(){\n    if(!instance) {\n      instance = new Singleton();\n    }\n    return instance;\n  }\n})()\n\nlet s1 = Singleton.getInstance();\nlet s2 = Singleton.getInstance();\nconsole.lg(s1 === s2); // true\n```\n在Vuex源码中，通过一个外部变量来控制只安装一次Vuex\n```js\nlet Vue; // bind on install\nexport function install (_Vue) {\n  if (Vue && _Vue === Vue) {\n    // 如果发现Vue有值，就不重新创建\n    return false;\n  }\n  Vue = _Vue;\n  applyMixin(Vue);\n}\n```', 29, NULL, 21, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=1987026386,2214862957&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, NULL, '2023-01-04 14:51:32', NULL);
 INSERT INTO `blog_info` VALUES (142, '设计模式-适配器模式', '适配器模式', '## 设计模式-适配器模式\n- 适配器用来解决两个接口不兼容的情况，不需要改变已有的接口，通过包装一层的方式实现两个接口的正常协作，实例代码如下：\n```js\nclass Plug{\n  getName(){\n    return \'hl243695czyn\';\n  }\n}\nclass Target{\n  constructor(){\n    this.plug = new Plug();\n  }\n  getName(){\n    return this.plug.getName() + \' love\';\n  }\n}\nlet target = new Target();\ntarget.getName(); // hl243695czyn love\n```\n在Vue中，经常使用到适配器模式，如父组件传递给子组件一个时间戳属性，组件内部需要将时间戳转为正常的日期显示，一般会使用`computed`来做转换这件事情，这个过程就使用了适配器模式', 29, 0, 21, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=2052860268,2113493852&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2023-01-04 15:22:05', '2023-01-04 15:22:05', 1);
 INSERT INTO `blog_info` VALUES (143, '设计模式-装饰模式', '装饰模式', '## 设计模式-装饰模式\n- 装饰模式不需要改变已有的接口，作用是给对象添加功能。\n示例代码如下：\n```js\nimport { connect } from \'react-redux\';\nclass MyComponent extends React.Component{\n  // ...\n}\nexport default connect(mapStateToProps)(MyComponent)\n```', 29, 0, 21, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230104/u=529657752,2140000372&fm=253&fmt=auto&app=138&f=JPEG.webp', NULL, NULL, NULL, NULL, 1, 1, '2023-01-04 16:40:41', '2023-01-04 16:40:41', 1);
+INSERT INTO `blog_info` VALUES (144, '设计模式-代理模式', '代理模式', '## 设计模式-代理模式\n- 代理是为了控制对对象的访问，不让外部直接访问到对象。在显示生活中，也有很多代理的场景。\n- 在实际代码中其实代理的场景也很多，如\n```html\n<ul id=\"ul\">\n  <li>1</li>\n  <li>2</li>\n  <li>3</li>\n  <li>4</li>\n  <li>5</li>\n</ul>\n\n<script>\n  let ul = document.querySelector(\'#ul\');\n  ul.addEventListener(\'click\', e => {\n    console.log(e.target);\n  })\n</script>\n```\n因为存在太多的li标签，不可能每个都去绑定事件。这时候可以通过给父节点绑定一个时间，让父节点作为代理去获取真实点击的节点', 29, 0, 21, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230105/u=1085418351,3301086122&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2023-01-05 17:34:48', '2023-01-05 17:34:48', 1);
+INSERT INTO `blog_info` VALUES (145, '设计模式-发布-订阅模式', '发布-订阅模式', '## 设计模式-发布-订阅模式\n- `发布-订阅模式`也叫`观察者模式`。通过一对一或一对多的依赖关系，当对象发生改变时，订阅方都会收到通知。实例代码如下：\n```html\n<ul id=\"ul\"></ul>\n\n<script>\n  let ul = document.querySelector(\'#ul\');\n  ul.addEventListener(\'click\', e => {\n    console.log(e.target);\n  })\n</script>\n```\n在Vue中，如何实现响应式也是使用了该模式。对于需要实现响应式的对象来说，在get的时候会进行依赖手机，当改变了对象的属性时，就会触发派发更新。', 29, 0, 21, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230105/u=1987026386,2214862957&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2023-01-05 17:39:03', '2023-01-05 17:39:03', 1);
+INSERT INTO `blog_info` VALUES (146, '设计模式-外观模式', '外观模式', '## 设计模式-外观模式\n- 外观模式提供了一个接口，隐藏了内部的逻辑，更加方便外部调用，实例代码如下：\n```js\nfunction addEvent(ele, evType, fn, useCapture) {\n  if (ele.addEventListener) {\n    ele.addEventListener(evType, fn, useCapture);\n    return true;\n  } else if (ele.attachEvent) {\n    return ele.attachEvent(\'on\' + evType, fn);\n  } else {\n    ele[\'on\' + evType] = fn;\n  }\n}\n```\n对于不同的浏览器，添加事件的方式可能会存在兼容问题。如果每次都需要去写这样一遍的话肯定是不能接受的，所以我们将这些判断逻辑统一封装在一个接口中，外部需要添加事件只需要调用addEvent即可。', 29, 0, 21, NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20230105/u=3441609423,2220916635&fm=253&fmt=auto&app=138&f=JPEG.webp', 1, 1, NULL, NULL, 1, 1, '2023-01-05 17:43:50', '2023-01-05 17:43:50', 1);
 
 -- ----------------------------
 -- Table structure for blog_tag
@@ -206,7 +209,7 @@ INSERT INTO `blog_tag` VALUES (17, 'js面试题', 0, '2023-01-04 10:07:58', '202
 INSERT INTO `blog_tag` VALUES (18, 'vue面试题', 0, '2023-01-04 10:08:04', '2023-01-04 10:38:30', 1);
 INSERT INTO `blog_tag` VALUES (20, 'webpack', 1, '2023-01-04 10:58:40', '2023-01-04 13:03:46', 1);
 INSERT INTO `blog_tag` VALUES (19, '其他', 1, '2023-01-04 10:38:11', '2023-01-04 10:47:42', 1);
-INSERT INTO `blog_tag` VALUES (21, '设计模式', 4, '2023-01-04 13:09:01', '2023-01-04 16:40:43', 1);
+INSERT INTO `blog_tag` VALUES (21, '设计模式', 7, '2023-01-04 13:09:01', '2023-01-05 17:43:50', 1);
 
 -- ----------------------------
 -- Table structure for blog_type
@@ -235,7 +238,7 @@ INSERT INTO `blog_type` VALUES (23, 'elasticsearch', 'elasticsearch', 1, '2022-1
 INSERT INTO `blog_type` VALUES (22, '其他', '其他的类型', 1, '2022-12-28 14:59:11', '2023-01-03 14:38:52', 0);
 INSERT INTO `blog_type` VALUES (21, '浏览器', '浏览器相关', 10, '2022-12-28 13:14:32', '2023-01-03 16:40:18', 1);
 INSERT INTO `blog_type` VALUES (20, '开发笔记', '开发过程中的笔记', 52, '2022-12-28 13:12:40', '2023-01-03 16:40:18', 1);
-INSERT INTO `blog_type` VALUES (29, '设计模式', '设计模式相关', 4, '2023-01-04 13:08:50', '2023-01-04 16:40:44', 1);
+INSERT INTO `blog_type` VALUES (29, '设计模式', '设计模式相关', 7, '2023-01-04 13:08:50', '2023-01-05 17:43:50', 1);
 
 -- ----------------------------
 -- Table structure for ums_admin
@@ -257,7 +260,7 @@ CREATE TABLE `ums_admin`  (
 -- ----------------------------
 -- Records of ums_admin
 -- ----------------------------
-INSERT INTO `ums_admin` VALUES (3, 'admin', '123456', '0:0:0:0:0:0:0:1', '2023-01-04 14:39:31', 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220620/lihezong.webp', '2022-06-20 16:11:43', '2022-06-23 10:01:03', 1);
+INSERT INTO `ums_admin` VALUES (3, 'admin', '123456', '0:0:0:0:0:0:0:1', '2023-01-05 17:16:36', 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220620/lihezong.webp', '2022-06-20 16:11:43', '2022-06-23 10:01:03', 1);
 INSERT INTO `ums_admin` VALUES (4, 'test', '123456', '', NULL, 'https://hl-mall-tiny.oss-cn-chengdu.aliyuncs.com/hlmall/images/20220623/hw-logo.png', '2022-06-23 10:15:19', '2022-06-23 10:15:19', 1);
 
 -- ----------------------------
